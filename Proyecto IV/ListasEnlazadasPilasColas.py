@@ -22,6 +22,43 @@ class Proyecto:
     def agregar_tarea(self, tarea):
         self.tareas.append(tarea)
 
+    def agregar_tarea_al_final(self, tarea):
+        self.tareas.append(tarea)
+
+    def agregar_tarea_en_posicion(self, posicion, tarea):
+        self.tareas.insert(posicion, tarea)
+
+
+    def eliminar_tarea(self, id_tarea):
+        for tarea in self.tareas:
+            if tarea.id == id_tarea:
+                self.tareas.remove(tarea)
+                return True
+        return False
+
+    def buscar_tarea(self, criterio, valor):
+        if criterio == 'id':
+            for tarea in self.tareas:
+                if tarea.id == valor:
+                    return tarea
+        elif criterio == 'nombre':
+            for tarea in self.tareas:
+                if tarea.nombre.lower() == valor.lower():
+                    return tarea
+        elif criterio == 'empresa':
+            for tarea in self.tareas:
+                if tarea.empresa_cliente.lower() == valor.lower():
+                    return tarea
+        return None
+
+    def actualizar_tarea(self, id_tarea, **kwargs):
+        for tarea in self.tareas:
+            if tarea.id == id_tarea:
+                for key, value in kwargs.items():
+                    setattr(tarea, key, value)
+                return True
+        return False
+
     def listar_tareas(self):
         if self.tareas:
             for tarea in self.tareas:
@@ -58,11 +95,9 @@ class Tarea:
 class GestorProyectos:
     def __init__(self):
         self.proyectos = []
-
     # Método para agregar un proyecto a la lista de proyectos
     def agregar_proyecto(self, proyecto):
         self.proyectos.append(proyecto)
-
     # Método para buscar un proyecto por un criterio y un valor específico 
     def buscar_proyecto(self, criterio, valor):
         return [proyecto for proyecto in self.proyectos if getattr(proyecto, criterio, None) == valor]
@@ -88,27 +123,51 @@ class GestorProyectos:
     def listar_proyectos(self):
         return self.proyectos
 
+
     def agregar_tarea_a_proyecto(self, id_proyecto, tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
                 proyecto.agregar_tarea(tarea)
                 return True
         return False
-
-    def listar_tareas_de_proyecto(self, id_proyecto):
+    
+    def agregar_tarea_al_final_de_proyecto(self, id_proyecto, tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
-                proyecto.listar_tareas()
+                proyecto.agregar_tarea_al_final(tarea)
                 return True
+        return False
+    
+    def agregar_tarea_en_posicion_de_proyecto(self, id_proyecto, posicion, tarea):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                proyecto.agregar_tarea_en_posicion(posicion, tarea)
+                return True
+        return False
+    
+   
+    def actualizar_tarea_en_proyecto(self, id_proyecto, id_tarea, **kwargs):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                return proyecto.actualizar_tarea(id_tarea, **kwargs)
         return False
 
     def eliminar_tarea_de_proyecto(self, id_proyecto, id_tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
-                for tarea in proyecto.tareas:
-                    if tarea.id == id_tarea:
-                        proyecto.tareas.remove(tarea)
-                        return True
+                return proyecto.eliminar_tarea(id_tarea)
+            
+    def buscar_tarea_en_proyecto(self, id_proyecto, criterio, valor):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                return proyecto.buscar_tarea(criterio, valor)
+
+    
+    def listar_tareas_de_proyecto(self, id_proyecto):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                proyecto.listar_tareas()
+                return True
         return False
 
 # Función para mostrar el menú de opciones
@@ -119,15 +178,18 @@ def mostrar_menu():
     print("3. Consultar Proyecto")
     print("4. Eliminar Proyecto")
     print("5. Listar Proyectos")
-    print("6. Agregar Tarea a Proyecto")
-    print("7. Listar Tareas de Proyecto")
-    print("8. Eliminar Tarea de Proyecto")
-    print("9. Salir")
+    print("6. Agregar Tarea al final del Proyecto")
+    print("7. Listar Tareas de un Proyecto")
+    print("8. Eliminar Tarea de un Proyecto")
+    print("9. Agregar Tarea en posición específica del Proyecto")
+    print("10. Buscar Tareas por nombre en un Proyecto")
+    print("11. Actualizar Tarea en un Proyecto")
+    print("12. Salir")
 
 # Función principal
 def main():
     gestor = GestorProyectos()
-
+    
     # Menú de opciones
     while True:
         mostrar_menu()
@@ -216,6 +278,7 @@ def main():
                 print("No hay proyectos registrados.")
 
         elif opcion == '6':
+            # Agregar tarea al final del proyecto
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea: ")
             nombre_tarea = input("Nombre de la tarea: ")
@@ -227,10 +290,11 @@ def main():
             porcentaje = input("Porcentaje completado: ")
 
             nueva_tarea = Tarea(id_tarea, nombre_tarea, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
-            if gestor.agregar_tarea_a_proyecto(id_proyecto, nueva_tarea):
-                print("Tarea agregada exitosamente.")
+            if gestor.agregar_tarea_al_final_de_proyecto(id_proyecto, nueva_tarea):
+                print("Tarea agregada al final del proyecto exitosamente.")
             else:
                 print("No se encontró el proyecto.")
+
 
         elif opcion == '7':
             id_proyecto = input("ID del proyecto: ")
@@ -245,11 +309,67 @@ def main():
                 print("No se encontró el proyecto o la tarea.")
 
         elif opcion == '9':
+            # Agregar tarea en posición específica del proyecto
+            id_proyecto = input("ID del proyecto: ")
+            id_tarea = input("ID de la tarea: ")
+            nombre_tarea = input("Nombre de la tarea: ")
+            empresa_cliente = input("Empresa cliente: ")
+            descripcion = input("Descripción: ")
+            fecha_inicio = datetime.date.today()
+            fecha_vencimiento = input("Fecha de vencimiento (YYYY-MM-DD): ")
+            estado_actual = input("Estado actual: ")
+            porcentaje = input("Porcentaje completado: ")
+            posicion = int(input("Posición en la lista de tareas: "))
+
+            nueva_tarea = Tarea(id_tarea, nombre_tarea, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
+            if gestor.agregar_tarea_en_posicion_de_proyecto(id_proyecto, posicion, nueva_tarea):
+                print(f"Tarea agregada en la posición {posicion} del proyecto exitosamente.")
+            else:
+                print("No se encontró el proyecto.")
+
+        
+
+        elif opcion == '11':
+    # Actualizar tarea en un proyecto
+            id_proyecto = input("ID del proyecto: ")
+            id_tarea = input("ID de la tarea a actualizar: ")
+            proyecto = gestor.buscar_proyecto('id', id_proyecto)
+            if proyecto:
+                print("Ingrese los nuevos datos de la tarea (deje en blanco para mantener los valores actuales):")
+                nombre_tarea = input("Nuevo nombre de la tarea: ")
+                empresa_cliente = input("Nueva empresa cliente: ")
+                descripcion = input("Nueva descripción: ")
+                fecha_vencimiento = input("Nueva fecha de vencimiento: ")
+                estado_actual = input("Nuevo estado actual: ")
+                porcentaje = input("Nuevo porcentaje completado: ")
+
+                kwargs = {
+                    'nombre': nombre_tarea,
+                    'empresa_cliente': empresa_cliente,
+                    'descripcion': descripcion,
+                    'fecha_vencimiento': fecha_vencimiento,
+                    'estado_actual': estado_actual,
+                    'porcentaje': porcentaje
+                }
+
+                if gestor.actualizar_tarea_en_proyecto(id_proyecto, id_tarea, **kwargs):
+                    print("Tarea actualizada exitosamente.")
+                else:
+                    print("No se pudo actualizar la tarea.")
+            else:
+                print("No se encontró el proyecto.")
+
+            
+
+        elif opcion == '12':
+            # Salir del programa
             print("Saliendo...")
             break
 
         else:
-            print("Opción no válida. Por favor, seleccione una opción válida del menú.")
+            print("Opción no válida. Por favor, intente de nuevo.")
 
+
+            
 if __name__ == "__main__":
     main()

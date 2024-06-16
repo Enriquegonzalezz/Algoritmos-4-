@@ -42,13 +42,11 @@ class GestorProyectos:
 
     # Método para eliminar un proyecto por un id
     def eliminar_proyecto(self, id):
-        proyecto_encontrado = False
         for proyecto in self.proyectos:
             if proyecto.id == id:
                 self.proyectos.remove(proyecto)
-                proyecto_encontrado = True
-                break
-        return proyecto_encontrado
+                return True
+        return False
     
     # Método para listar todos los proyectos
     def listar_proyectos(self):
@@ -143,11 +141,9 @@ def main():
         elif opcion == '4':
             id = input("ID del proyecto a eliminar: ")
             if gestor.eliminar_proyecto(id):
-                print("")
                 print("Proyecto eliminado exitosamente.")
-            else:
-                print("")
-                print("Proyecto no encontrado.")
+            else:        
+                print("Proyecto no encontrado")
 
         elif opcion == '5':
             proyectos = gestor.listar_proyectos()

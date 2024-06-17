@@ -5,7 +5,7 @@ from Subtarea import Subtarea
 from Tarea import Tarea
 from Gestion import GestorProyectos
 from Varias import mostrar_menu
-from Consultas import listar_tareas_estado
+from Consultas import *
 
 # Función principal
 def main():
@@ -139,6 +139,39 @@ def main():
             else:
                 estado = input("Estado de la tarea: ")
                 listar_tareas_estado(proyecto.tareas, estado)
+                continue
+
+        # Listar Tareas de Proyecto por Fecha
+        elif opciones.index("Listar Tareas de Proyecto por Fecha") + 1 == int(eleccion):
+            id_proyecto = input("ID del proyecto: ")
+            proyecto = gestor.obtener_proyecto(id_proyecto)
+            if not proyecto:
+                print("No se encontró el proyecto.")
+            else:
+                print("Opciones de fecha:")
+                print("1. Fecha de Inicio")
+                print("2. Fecha de Vencimiento")
+                fecha = input("Eleccion: ")
+                if fecha == "1":
+                    fecha_inicio = True
+                else:
+                    fecha_inicio = False
+                print("Opciones de filtro:")
+                print("1. Rango de fechas")
+                print("2. Despues de")
+                print("3. Antes de")
+                filtro = input("Eleccion: ")
+                if filtro == "1":
+                    despues = datetime.strptime(input("Fecha despues de (YYYY-MM-DD): "))
+                    antes = datetime.strptime(input("Fecha antes de (YYYY-MM-DD): ")) 
+                    listar_tareas_fecha(proyecto.tareas, fecha_inicio, [despues, antes])
+                else:
+                    if filtro == "2":
+                        despues = datetime.strptime(input("Fecha despues de (YYYY-MM-DD): "))
+                        listar_tareas_fecha(proyecto.tareas, fecha_inicio, fecha_despues=despues)
+                    else:
+                        antes = datetime.strptime(input("Fecha antes de (YYYY-MM-DD): "))
+                        listar_tareas_fecha(proyecto.tareas, fecha_inicio, fecha_antes=antes)
                 continue
             
         # Eliminar Tarea del Proyecto

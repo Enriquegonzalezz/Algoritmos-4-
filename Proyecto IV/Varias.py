@@ -1,23 +1,14 @@
 # Función para mostrar el menú de opciones
 def mostrar_menu():
+    opciones = ["Agregar Proyecto", "Modificar Proyecto", "Buscar Proyecto", "Eliminar Proyecto",
+        "Listar Proyectos", "Agregar Tarea al Proyecto", "Listar Tareas de Proyecto", "Listar Tareas de Proyecto por Estado",
+        "Eliminar Tarea del Proyecto", "Agregar Tarea en Posición Específica del Proyecto", "Buscar Tareas por Nombre en Proyecto",
+        "Actualizar Tarea en Proyecto", "Agregar Subtarea a Tarea", "Listar Subtareas de Tarea", "Eliminar Subtarea de Tarea",
+        "Actualizar Subtarea de Tarea", "Agregar Tarea Prioritaria", "Eliminar Tarea Prioritaria de la Cima",
+        "Consultar Tarea Prioritaria en la Cima", "Salir"
+    ]
     print("Menú de Opciones")
-    print("1. Agregar Proyecto")
-    print("2. Modificar Proyecto")
-    print("3. Buscar Proyecto")
-    print("4. Eliminar Proyecto")
-    print("5. Listar Proyectos")
-    print("6. Agregar Tarea al Proyecto")
-    print("7. Listar Tareas de Proyecto")
-    print("8. Eliminar Tarea del Proyecto")
-    print("9. Agregar Tarea en Posición Específica del Proyecto")
-    print("10. Buscar Tareas por Nombre en Proyecto")
-    print("11. Actualizar Tarea en Proyecto")
-    print("12. Agregar Subtarea a Tarea")
-    print("13. Listar Subtareas de Tarea")
-    print("14. Eliminar Subtarea de Tarea")
-    print("15. Actualizar Subtarea de Tarea")
-    print("16. Agregar Tarea Prioritaria")
-    print("17. Eliminar Tarea Prioritaria de la Cima")
-    print("18. Consultar Tarea Prioritaria en la Cima")
-    print("19. Mostrar Tiempo Total de Tareas Prioritarias")
-    print("20. Salir")
+    for opcion in opciones:
+        print(f"{opciones.index(opcion) + 1}. {opcion}")
+
+    return opciones

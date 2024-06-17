@@ -5,6 +5,7 @@ from Subtarea import Subtarea
 from Tarea import Tarea
 from Gestion import GestorProyectos
 from Varias import mostrar_menu
+from Consultas import listar_tareas_estado
 
 # Función principal
 def main():
@@ -12,11 +13,11 @@ def main():
     
     # Menú de opciones
     while True:
-        mostrar_menu()
-        opcion = input("Seleccione una opción: ")
+        opciones = mostrar_menu()
+        eleccion = input("Seleccione una opción: ")
 
         # Agregar Proyecto 
-        if opcion == '1':
+        if opciones.index("Agregar Proyecto") + 1 == int(eleccion):
             id = input("ID: ")
             nombre = input("Nombre: ")
             descripcion = input("Descripción: ")
@@ -33,7 +34,7 @@ def main():
             print("Proyecto agregado exitosamente.")
 
         # Modificar Proyecto
-        elif opcion == '2':
+        elif opciones.index("Modificar Proyecto") + 1 == int(eleccion):
             id = input("ID del proyecto a modificar: ")
             print("Ingrese los nuevos datos del proyecto (deje en blanco para no modificar):")
             nombre = input("Nombre: ")
@@ -71,7 +72,7 @@ def main():
                 print("Proyecto no encontrado.")
 
         # Buscar Proyecto
-        elif opcion == '3':
+        elif opciones.index("Buscar Proyecto") + 1 == int(eleccion):
             print("Criterios de búsqueda disponibles: id, nombre, empresa, gerente")
             criterio = input("Buscar por: ").lower()
             valor = input("Valor: ")
@@ -85,7 +86,7 @@ def main():
                 print("Proyecto no encontrado.")
 
         # Eliminar Proyecto
-        elif opcion == '4':
+        elif opciones.index("Eliminar Proyecto") + 1 == int(eleccion):
             id = input("ID del proyecto a eliminar: ")
             if gestor.eliminar_proyecto(id):
                 print("Proyecto eliminado exitosamente.")
@@ -93,7 +94,7 @@ def main():
                 print("Proyecto no encontrado")
 
         # Listar Proyectos
-        elif opcion == '5':
+        elif opciones.index("Listar Proyectos") + 1 == int(eleccion):
             proyectos = gestor.listar_proyectos()
             if proyectos:
                 for proyecto in proyectos:
@@ -103,7 +104,7 @@ def main():
                 print("No hay proyectos registrados.")
 
         # Agregar tarea al final del proyecto
-        elif opcion == '6':
+        elif opciones.index("Agregar Tarea al Proyecto") + 1 == int(eleccion):
         
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea: ")
@@ -122,15 +123,26 @@ def main():
                 print("No se encontró el proyecto.")
 
         # Listar Tareas de Proyecto
-        elif opcion == '7':
+        elif opciones.index("Listar Tareas de Proyecto") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             if not gestor.listar_tareas_de_proyecto(id_proyecto):
                 print("No se encontró el proyecto.")
             else:
                 continue
+
+        # Listar Tareas de Proyecto por Estado
+        elif opciones.index("Listar Tareas de Proyecto por Estado") + 1 == int(eleccion):
+            id_proyecto = input("ID del proyecto: ")
+            proyecto = gestor.obtener_proyecto(id_proyecto)
+            if not proyecto:
+                print("No se encontró el proyecto.")
+            else:
+                estado = input("Estado de la tarea: ")
+                listar_tareas_estado(proyecto.tareas, estado)
+                continue
             
         # Eliminar Tarea del Proyecto
-        elif opcion == '8':
+        elif opciones.index("Eliminar Tarea del Proyecto") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea a eliminar: ")
             if gestor.eliminar_tarea_de_proyecto(id_proyecto, id_tarea):
@@ -139,7 +151,7 @@ def main():
                 print("No se encontró el proyecto o la tarea.")
 
         # Agregar Tarea en Posición Específica del Proyecto
-        elif opcion == '9':
+        elif opciones.index("Agregar Tarea en Posición Específica del Proyecto") + 1 == int(eleccion):
             
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea: ")
@@ -159,7 +171,7 @@ def main():
                 print("No se encontró el proyecto.")
 
         # Buscar Tareas por Nombre en Proyecto
-        elif opcion == '10':
+        elif opciones.index("Buscar Tareas por Nombre en Proyecto") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             nombre_tarea = input("Nombre de la tarea: ")
             tareas_encontradas = gestor.buscar_tareas_por_nombre_en_proyecto(id_proyecto, nombre_tarea)
@@ -170,7 +182,7 @@ def main():
                 print("No se encontraron tareas con ese nombre en el proyecto.")
 
         # Actualizar Tarea en Proyecto
-        elif opcion == '11':
+        elif opciones.index("Actualizar Tarea en Proyecto") + 1 == int(eleccion):
 
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea a actualizar: ")
@@ -201,7 +213,7 @@ def main():
                 print("No se encontró el proyecto.")
 
         # Agregar Subtarea a Tarea
-        elif opcion == '12':
+        elif opciones.index("Agregar Subtarea a Tarea") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
                 print("No se encontró el proyecto.")
@@ -221,7 +233,7 @@ def main():
                 print("No se encontró el proyecto o la tarea.")
 
         # Listar Subtareas de Tarea
-        elif opcion == '13':
+        elif opciones.index("Listar Subtareas de Tarea") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
                 print("No se encontró el proyecto.")
@@ -236,7 +248,7 @@ def main():
                 print("No se encontraron subtareas para la tarea especificada.")
 
         # Eliminar Subtarea de Tarea
-        elif opcion == '14':
+        elif opciones.index("Eliminar Subtarea de Tarea") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
                 print("No se encontró el proyecto.")
@@ -250,7 +262,7 @@ def main():
                 print("No se encontró el proyecto, la tarea o la subtarea.")    
 
         # Actualizar Subtarea de Tarea
-        elif opcion == '15':
+        elif opciones.index("Actualizar Subtarea de Tarea") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
                 print("No se encontró el proyecto.")
@@ -277,7 +289,7 @@ def main():
                 print("No se pudo actualizar la subtarea o no se encontró el proyecto, la tarea o la subtarea.")
 
         # Agregar Tarea Prioritaria
-        elif opcion == '16':
+        elif opciones.index("Agregar Tarea Prioritaria") + 1 == int(eleccion):
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea prioritaria: ")
             nombre_tarea = input("Nombre de la tarea prioritaria: ")
@@ -295,7 +307,7 @@ def main():
                 print("No se encontró el proyecto.")
 
         # Eliminar Tarea Prioritaria de la Cima del proyecto
-        elif opcion == '17':
+        elif opciones.index("Eliminar Tarea Prioritaria de la Cima") + 1 == int(eleccion):
 
             id_proyecto = input("ID del proyecto: ")
             tarea_prioritaria_eliminada = gestor.eliminar_tarea_prioritaria_de_proyecto(id_proyecto)
@@ -305,7 +317,7 @@ def main():
                 print("No se encontró el proyecto o no hay tareas prioritarias.")
 
         # Consultar Tarea Prioritaria en la Cima
-        elif opcion == '18':
+        elif opciones.index("Consultar Tarea Prioritaria en la Cima") + 1 == int(eleccion):
 
             id_proyecto = input("ID del proyecto: ")
             tarea_prioritaria = gestor.consultar_tarea_prioritaria_de_proyecto(id_proyecto)
@@ -315,14 +327,12 @@ def main():
                 print("No se encontró el proyecto o no hay tareas prioritarias.")
 
         # Salir del programa
-        elif opcion == '20':
+        elif opciones.index("Salir") + 1 == int(eleccion):
             # Salir del programa
             print("Saliendo...")
             break
         else:
             print("Opción no válida. Por favor, intente de nuevo.")
-
-
-            
+        
 if __name__ == "__main__":
     main()

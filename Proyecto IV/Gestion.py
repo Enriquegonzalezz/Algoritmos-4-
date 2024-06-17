@@ -8,6 +8,12 @@ class GestorProyectos:
     # Método para buscar un proyecto por un criterio y un valor específico 
     def buscar_proyecto(self, criterio, valor):
         return [proyecto for proyecto in self.proyectos if getattr(proyecto, criterio, None) == valor]
+    
+    def obtener_proyecto(self, id):
+        for proyecto in self.proyectos:
+            if proyecto.id == id:
+                return proyecto
+        return False
 
     # Método para modificar un proyecto por un id y un diccionario de argumentos
     def modificar_proyecto(self, id, **kwargs):

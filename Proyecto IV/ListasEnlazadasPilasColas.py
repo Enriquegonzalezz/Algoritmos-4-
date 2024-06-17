@@ -1,4 +1,3 @@
-# Módulo 1. Gestión de proyectos
 
 import datetime
 class Proyecto:
@@ -14,21 +13,26 @@ class Proyecto:
         self.gerente = gerente
         self.equipo = equipo
         self.tareas = []
+        self.pila_tareas_prioritarias = []
+
         
     # Método para representar un objeto Proyecto como una cadena de texto
     def __str__(self):
         return f"ID: {self.id}, Nombre: {self.nombre}, Descripción: {self.descripcion}, Fecha de Inicio: {self.fecha_inicio}, Fecha de Vencimiento: {self.fecha_vencimiento}, Estado: {self.estado}, Empresa: {self.empresa}, Gerente: {self.gerente}, Equipo: {', '.join(self.equipo)}"
 
+    # Método para agregar una tarea al proyecto
     def agregar_tarea(self, tarea):
         self.tareas.append(tarea)
 
+    # Método para agregar una tarea al final de la lista de tareas
     def agregar_tarea_al_final(self, tarea):
         self.tareas.append(tarea)
 
+    # Método para agregar una tarea en una posición específica de la lista de tareas
     def agregar_tarea_en_posicion(self, posicion, tarea):
         self.tareas.insert(posicion, tarea)
 
-
+    # Método para eliminar una tarea del proyecto
     def eliminar_tarea(self, id_tarea):
         for tarea in self.tareas:
             if tarea.id == id_tarea:
@@ -36,6 +40,7 @@ class Proyecto:
                 return True
         return False
 
+    # Método para buscar una tarea por un criterio y un valor específico
     def buscar_tarea(self, criterio, valor):
         if criterio == 'id':
             for tarea in self.tareas:
@@ -51,6 +56,7 @@ class Proyecto:
                     return tarea
         return None
 
+    # Método para actualizar una tarea por un id y un diccionario de argumentos
     def actualizar_tarea(self, id_tarea, **kwargs):
         for tarea in self.tareas:
             if tarea.id == id_tarea:
@@ -59,6 +65,7 @@ class Proyecto:
                 return True
         return False
 
+    # Método para listar todas las tareas del proyecto
     def listar_tareas(self):
         if self.tareas:
             for tarea in self.tareas:
@@ -66,6 +73,7 @@ class Proyecto:
         else:
             print("No hay tareas registradas para este proyecto.")
 
+    # Método para agregar una subtarea a una tarea en el proyecto
     def agregar_subtarea_a_tarea(self, id_tarea, subtarea):
         for tarea in self.tareas:
             if tarea.id == id_tarea:
@@ -73,24 +81,47 @@ class Proyecto:
                 return True
         return False
 
+    # Método para eliminar una subtarea de una tarea en el proyecto
     def eliminar_subtarea_de_tarea(self, id_tarea, id_subtarea):
         for tarea in self.tareas:
             if tarea.id == id_tarea:
                 return tarea.eliminar_subtarea(id_subtarea)
         return False
 
+    # Método para actualizar una subtarea de una tarea en el proyecto
     def actualizar_subtarea_en_tarea(self, id_tarea, id_subtarea, **kwargs):
         for tarea in self.tareas:
             if tarea.id == id_tarea:
                 return tarea.actualizar_subtarea(id_subtarea, **kwargs)
         return False
 
+    # Método para listar las subtareas de una tarea en el proyecto
     def listar_subtareas_de_tarea(self, id_tarea):
         for tarea in self.tareas:
             if tarea.id == id_tarea:
                 return tarea.listar_subtareas()
         return []
     
+    # Método para agregar una tarea prioritaria a la pila
+    def agregar_tarea_prioritaria(self, tarea):
+        self.pila_tareas_prioritarias.append(tarea)
+
+    # Método para eliminar la tarea más prioritaria de la pila
+    def eliminar_tarea_prioritaria(self):
+        if self.pila_tareas_prioritarias:
+            return self.pila_tareas_prioritarias.pop()
+        else:
+            return None
+        
+    # Método para consultar la tarea más prioritaria de la pila
+    def consultar_tarea_prioritaria(self):
+        if self.pila_tareas_prioritarias:
+            return self.pila_tareas_prioritarias[-1]
+        else:
+            return None
+
+
+
 class Subtarea:
     def __init__(self, id, nombre, descripcion, estado_actual, porcentaje):
         self.id = id
@@ -101,6 +132,7 @@ class Subtarea:
 
     def __str__(self):
         return f"ID: {self.id}, Nombre: {self.nombre}, Descripción: {self.descripcion}, Estado: {self.estado_actual}, Porcentaje: {self.porcentaje}%"
+
 
 
 class Tarea:
@@ -115,12 +147,15 @@ class Tarea:
         self.porcentaje = porcentaje
         self.subtareas = []
 
+    # Método para representar un objeto Tarea como una cadena de texto
     def __str__(self):
         return f"Tarea {self.id}: {self.nombre}, Cliente: {self.empresa_cliente}, Estado: {self.estado_actual}, Completado: {self.porcentaje}%"
 
+    # Método para agregar una subtarea a la lista de subtareas
     def agregar_subtarea(self, subtarea):
         self.subtareas.append(subtarea)
 
+    # Método para actualizar una subtarea por un id y un diccionario de argumentos
     def actualizar_subtarea(self, id_subtarea, **kwargs):
         for subtarea in self.subtareas:
             if subtarea.id == id_subtarea:
@@ -129,6 +164,7 @@ class Tarea:
                 return True
         return False
     
+    # Método para eliminar una subtarea por un id   
     def eliminar_subtarea(self, id_subtarea):
         for subtarea in self.subtareas:
             if subtarea.id == id_subtarea:
@@ -136,12 +172,15 @@ class Tarea:
                 return True
         return False
     
+    # Método para listar todas las subtareas
     def listar_subtareas(self):
         if self.subtareas:
             for subtarea in self.subtareas:
                 print(subtarea)
         else:
             print("No hay subtareas para esta tarea.")
+
+
 # Clase para gestionar los proyectos
 class GestorProyectos:
     def __init__(self):
@@ -174,7 +213,7 @@ class GestorProyectos:
     def listar_proyectos(self):
         return self.proyectos
 
-
+    # Método para agregar una tarea a un proyecto
     def agregar_tarea_a_proyecto(self, id_proyecto, tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
@@ -182,6 +221,7 @@ class GestorProyectos:
                 return True
         return False
     
+    # Método para agregar una tarea al final de un proyecto
     def agregar_tarea_al_final_de_proyecto(self, id_proyecto, tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
@@ -189,6 +229,7 @@ class GestorProyectos:
                 return True
         return False
     
+    # Método para agregar una tarea en una posición específica de un proyecto
     def agregar_tarea_en_posicion_de_proyecto(self, id_proyecto, posicion, tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
@@ -196,24 +237,27 @@ class GestorProyectos:
                 return True
         return False
     
-   
+    # Método para actualizar una tarea en un proyecto
     def actualizar_tarea_en_proyecto(self, id_proyecto, id_tarea, **kwargs):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
                 return proyecto.actualizar_tarea(id_tarea, **kwargs)
         return False
 
+    # Método para eliminar una tarea de un proyecto
     def eliminar_tarea_de_proyecto(self, id_proyecto, id_tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
                 return proyecto.eliminar_tarea(id_tarea)
-            
+
+    # Método para buscar tareas por nombre en un proyecto      
     def buscar_tareas_por_nombre_en_proyecto(self, id_proyecto, nombre_tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
                 return [tarea for tarea in proyecto.tareas if tarea.nombre.lower() == nombre_tarea.lower()]
         return []
     
+    # Método para listar las tareas de un proyecto
     def listar_tareas_de_proyecto(self, id_proyecto):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
@@ -221,9 +265,11 @@ class GestorProyectos:
                 return True
         return False
 
+    # Método para verificar si un proyecto existe
     def proyecto_existe(self, id_proyecto):
         return any(proyecto.id == id_proyecto for proyecto in self.proyectos)
-    
+
+    # Método para agregar subtarea a tarea en proyecto  
     def agregar_subtarea_a_tarea_en_proyecto(self, id_proyecto, id_tarea, subtarea):
         if not self.proyecto_existe(id_proyecto):
             return False
@@ -232,6 +278,7 @@ class GestorProyectos:
                 return proyecto.agregar_subtarea_a_tarea(id_tarea, subtarea)
         return False
 
+    # Método para eliminar subtarea de tarea en proyecto
     def eliminar_subtarea_de_tarea_en_proyecto(self, id_proyecto, id_tarea, id_subtarea):
         if not self.proyecto_existe(id_proyecto):
             return False
@@ -240,6 +287,7 @@ class GestorProyectos:
                 return proyecto.eliminar_subtarea_de_tarea(id_tarea, id_subtarea)
         return False
 
+    # Método para actualizar subtarea de tarea en proyecto
     def actualizar_subtarea_en_tarea_en_proyecto(self, id_proyecto, id_tarea, id_subtarea, **kwargs):
         if not self.proyecto_existe(id_proyecto):
             return False
@@ -247,7 +295,8 @@ class GestorProyectos:
             if proyecto.id == id_proyecto:
                 return proyecto.actualizar_subtarea_en_tarea(id_tarea, id_subtarea, **kwargs)
         return False
-    
+
+    # Método para listar subtareas de tarea en proyecto
     def listar_subtareas_de_tarea_en_proyecto(self, id_proyecto, id_tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
@@ -255,6 +304,29 @@ class GestorProyectos:
                     if tarea.id == id_tarea:
                         return tarea.subtareas
         return []
+
+    # Método para agregar tarea prioritaria a proyecto
+    def agregar_tarea_prioritaria_a_proyecto(self, id_proyecto, tarea):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                proyecto.agregar_tarea_prioritaria(tarea)
+                return True
+        return False
+
+    # Método para eliminar tarea prioritaria de proyecto
+    def eliminar_tarea_prioritaria_de_proyecto(self, id_proyecto):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                return proyecto.eliminar_tarea_prioritaria()
+        return None
+
+    # Método para consultar tarea prioritaria de proyecto
+    def consultar_tarea_prioritaria_de_proyecto(self, id_proyecto):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                return proyecto.consultar_tarea_prioritaria()
+        return None
+
 # Función para mostrar el menú de opciones
 def mostrar_menu():
     print("Menú de Opciones")
@@ -273,7 +345,11 @@ def mostrar_menu():
     print("13. Listar Subtareas de Tarea")
     print("14. Eliminar Subtarea de Tarea")
     print("15. Actualizar Subtarea de Tarea")
-    print("16. Salir")
+    print("16. Agregar Tarea Prioritaria")
+    print("17. Eliminar Tarea Prioritaria de la Cima")
+    print("18. Consultar Tarea Prioritaria en la Cima")
+    print("19. Mostrar Tiempo Total de Tareas Prioritarias")
+    print("20. Salir")
 
 # Función principal
 def main():
@@ -284,6 +360,7 @@ def main():
         mostrar_menu()
         opcion = input("Seleccione una opción: ")
 
+        # Agregar Proyecto 
         if opcion == '1':
             id = input("ID: ")
             nombre = input("Nombre: ")
@@ -300,6 +377,7 @@ def main():
             print("")
             print("Proyecto agregado exitosamente.")
 
+        # Modificar Proyecto
         elif opcion == '2':
             id = input("ID del proyecto a modificar: ")
             print("Ingrese los nuevos datos del proyecto (deje en blanco para no modificar):")
@@ -337,6 +415,7 @@ def main():
                 print("")
                 print("Proyecto no encontrado.")
 
+        # Buscar Proyecto
         elif opcion == '3':
             print("Criterios de búsqueda disponibles: id, nombre, empresa, gerente")
             criterio = input("Buscar por: ").lower()
@@ -350,6 +429,7 @@ def main():
                 print("")
                 print("Proyecto no encontrado.")
 
+        # Eliminar Proyecto
         elif opcion == '4':
             id = input("ID del proyecto a eliminar: ")
             if gestor.eliminar_proyecto(id):
@@ -357,6 +437,7 @@ def main():
             else:
                 print("Proyecto no encontrado")
 
+        # Listar Proyectos
         elif opcion == '5':
             proyectos = gestor.listar_proyectos()
             if proyectos:
@@ -366,8 +447,9 @@ def main():
                 print("")
                 print("No hay proyectos registrados.")
 
+        # Agregar tarea al final del proyecto
         elif opcion == '6':
-            # Agregar tarea al final del proyecto
+        
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea: ")
             nombre_tarea = input("Nombre de la tarea: ")
@@ -384,7 +466,7 @@ def main():
             else:
                 print("No se encontró el proyecto.")
 
-
+        # Listar Tareas de Proyecto
         elif opcion == '7':
             id_proyecto = input("ID del proyecto: ")
             if not gestor.listar_tareas_de_proyecto(id_proyecto):
@@ -392,7 +474,7 @@ def main():
             else:
                 continue
             
-
+        # Eliminar Tarea del Proyecto
         elif opcion == '8':
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea a eliminar: ")
@@ -401,8 +483,9 @@ def main():
             else:
                 print("No se encontró el proyecto o la tarea.")
 
+        # Agregar Tarea en Posición Específica del Proyecto
         elif opcion == '9':
-            # Agregar tarea en posición específica del proyecto
+            
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea: ")
             nombre_tarea = input("Nombre de la tarea: ")
@@ -420,8 +503,8 @@ def main():
             else:
                 print("No se encontró el proyecto.")
 
+        # Buscar Tareas por Nombre en Proyecto
         elif opcion == '10':
-            # Buscar tareas por nombre en un proyecto
             id_proyecto = input("ID del proyecto: ")
             nombre_tarea = input("Nombre de la tarea: ")
             tareas_encontradas = gestor.buscar_tareas_por_nombre_en_proyecto(id_proyecto, nombre_tarea)
@@ -431,8 +514,9 @@ def main():
             else:
                 print("No se encontraron tareas con ese nombre en el proyecto.")
 
+        # Actualizar Tarea en Proyecto
         elif opcion == '11':
-    # Actualizar tarea en un proyecto
+
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea a actualizar: ")
             proyecto = gestor.buscar_proyecto('id', id_proyecto)
@@ -461,6 +545,7 @@ def main():
             else:
                 print("No se encontró el proyecto.")
 
+        # Agregar Subtarea a Tarea
         elif opcion == '12':
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
@@ -480,6 +565,7 @@ def main():
             else:
                 print("No se encontró el proyecto o la tarea.")
 
+        # Listar Subtareas de Tarea
         elif opcion == '13':
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
@@ -494,6 +580,7 @@ def main():
             else:
                 print("No se encontraron subtareas para la tarea especificada.")
 
+        # Eliminar Subtarea de Tarea
         elif opcion == '14':
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
@@ -507,6 +594,7 @@ def main():
             else:
                 print("No se encontró el proyecto, la tarea o la subtarea.")    
 
+        # Actualizar Subtarea de Tarea
         elif opcion == '15':
             id_proyecto = input("ID del proyecto: ")
             if not gestor.proyecto_existe(id_proyecto):
@@ -533,11 +621,49 @@ def main():
             else:
                 print("No se pudo actualizar la subtarea o no se encontró el proyecto, la tarea o la subtarea.")
 
+        # Agregar Tarea Prioritaria
         elif opcion == '16':
+            id_proyecto = input("ID del proyecto: ")
+            id_tarea = input("ID de la tarea prioritaria: ")
+            nombre_tarea = input("Nombre de la tarea prioritaria: ")
+            empresa_cliente = input("Empresa cliente: ")
+            descripcion = input("Descripción: ")
+            fecha_inicio = datetime.date.today()
+            fecha_vencimiento = input("Fecha de vencimiento (YYYY-MM-DD): ")
+            estado_actual = input("Estado actual: ")
+            porcentaje = input("Porcentaje completado: ")
+
+            nueva_tarea = Tarea(id_tarea, nombre_tarea, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
+            if gestor.agregar_tarea_prioritaria_a_proyecto(id_proyecto, nueva_tarea):
+                print("Tarea prioritaria agregada al proyecto exitosamente.")
+            else:
+                print("No se encontró el proyecto.")
+
+        # Eliminar Tarea Prioritaria de la Cima del proyecto
+        elif opcion == '17':
+
+            id_proyecto = input("ID del proyecto: ")
+            tarea_prioritaria_eliminada = gestor.eliminar_tarea_prioritaria_de_proyecto(id_proyecto)
+            if tarea_prioritaria_eliminada:
+                print(f"Tarea prioritaria eliminada del proyecto: {tarea_prioritaria_eliminada.nombre}")
+            else:
+                print("No se encontró el proyecto o no hay tareas prioritarias.")
+
+        # Consultar Tarea Prioritaria en la Cima
+        elif opcion == '18':
+
+            id_proyecto = input("ID del proyecto: ")
+            tarea_prioritaria = gestor.consultar_tarea_prioritaria_de_proyecto(id_proyecto)
+            if tarea_prioritaria:
+                print(f"Tarea prioritaria del proyecto: {tarea_prioritaria}")
+            else:
+                print("No se encontró el proyecto o no hay tareas prioritarias.")
+
+        # Salir del programa
+        elif opcion == '20':
             # Salir del programa
             print("Saliendo...")
             break
-
         else:
             print("Opción no válida. Por favor, intente de nuevo.")
 

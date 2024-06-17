@@ -157,11 +157,11 @@ class GestorProyectos:
             if proyecto.id == id_proyecto:
                 return proyecto.eliminar_tarea(id_tarea)
             
-    def buscar_tarea_en_proyecto(self, id_proyecto, criterio, valor):
+    def buscar_tareas_por_nombre_en_proyecto(self, id_proyecto, nombre_tarea):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
-                return proyecto.buscar_tarea(criterio, valor)
-
+                return [tarea for tarea in proyecto.tareas if tarea.nombre.lower() == nombre_tarea.lower()]
+        return []
     
     def listar_tareas_de_proyecto(self, id_proyecto):
         for proyecto in self.proyectos:
@@ -327,7 +327,47 @@ def main():
             else:
                 print("No se encontró el proyecto.")
 
-        
+        elif opcion == '10':
+            # Buscar tareas por nombre en un proyecto
+            id_proyecto = input("ID del proyecto: ")
+            nombre_tarea = input("Nombre de la tarea: ")
+            tareas_encontradas = gestor.buscar_tareas_por_nombre_en_proyecto(id_proyecto, nombre_tarea)
+            if tareas_encontradas:
+                for tarea in tareas_encontradas:
+                    print(tarea)
+            else:
+                print("No se encontraron tareas con ese nombre en el proyecto.")
+
+        elif opcion == '11':
+            # Actualizar tarea en un proyecto
+            id_proyecto = input("ID del proyecto: ")
+            id_tarea = input("ID de la tarea a actualizar: ")
+            proyecto = gestor.buscar_proyecto('id', id_proyecto)
+            if proyecto:
+                print("Ingrese los nuevos datos de la tarea (deje en blanco para mantener los valores actuales):")
+                nombre_tarea = input("Nuevo nombre de la tarea: ")
+                empresa_cliente = input("Nueva empresa cliente: ")
+                descripcion = input("Nueva descripción: ")
+                fecha_vencimiento = input("Nueva fecha de vencimiento: ")
+                estado_actual = input("Nuevo estado actual: ")
+                porcentaje = input("Nuevo porcentaje completado: ")
+
+                kwargs = {
+                    'nombre': nombre_tarea,
+                    'empresa_cliente': empresa_cliente,
+                    'descripcion': descripcion,
+                    'fecha_vencimiento': fecha_vencimiento,
+                    'estado_actual': estado_actual,
+                    'porcentaje': porcentaje
+                }
+
+                if gestor.actualizar_tarea_en_proyecto(id_proyecto, id_tarea, **kwargs):
+                    print("Tarea actualizada exitosamente.")
+                else:
+                    print("No se pudo actualizar la tarea.")
+            else:
+                print("No se encontró el proyecto.")
+
 
         elif opcion == '11':
     # Actualizar tarea en un proyecto

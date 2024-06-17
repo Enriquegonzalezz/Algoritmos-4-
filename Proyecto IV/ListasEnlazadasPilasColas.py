@@ -66,6 +66,42 @@ class Proyecto:
         else:
             print("No hay tareas registradas para este proyecto.")
 
+    def agregar_subtarea_a_tarea(self, id_tarea, subtarea):
+        for tarea in self.tareas:
+            if tarea.id == id_tarea:
+                tarea.agregar_subtarea(subtarea)
+                return True
+        return False
+
+    def eliminar_subtarea_de_tarea(self, id_tarea, id_subtarea):
+        for tarea in self.tareas:
+            if tarea.id == id_tarea:
+                return tarea.eliminar_subtarea(id_subtarea)
+        return False
+
+    def actualizar_subtarea_en_tarea(self, id_tarea, id_subtarea, **kwargs):
+        for tarea in self.tareas:
+            if tarea.id == id_tarea:
+                return tarea.actualizar_subtarea(id_subtarea, **kwargs)
+        return False
+
+    def listar_subtareas_de_tarea(self, id_tarea):
+        for tarea in self.tareas:
+            if tarea.id == id_tarea:
+                return tarea.listar_subtareas()
+        return []
+    
+class Subtarea:
+    def __init__(self, id, nombre, descripcion, estado_actual, porcentaje):
+        self.id = id
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.estado_actual = estado_actual
+        self.porcentaje = porcentaje
+
+    def __str__(self):
+        return f"ID: {self.id}, Nombre: {self.nombre}, Descripción: {self.descripcion}, Estado: {self.estado_actual}, Porcentaje: {self.porcentaje}%"
+
 
 class Tarea:
     def __init__(self, id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje):
@@ -85,6 +121,21 @@ class Tarea:
     def agregar_subtarea(self, subtarea):
         self.subtareas.append(subtarea)
 
+    def actualizar_subtarea(self, id_subtarea, **kwargs):
+        for subtarea in self.subtareas:
+            if subtarea.id == id_subtarea:
+                for key, value in kwargs.items():
+                    setattr(subtarea, key, value)
+                return True
+        return False
+    
+    def eliminar_subtarea(self, id_subtarea):
+        for subtarea in self.subtareas:
+            if subtarea.id == id_subtarea:
+                self.subtareas.remove(subtarea)
+                return True
+        return False
+    
     def listar_subtareas(self):
         if self.subtareas:
             for subtarea in self.subtareas:
@@ -170,21 +221,59 @@ class GestorProyectos:
                 return True
         return False
 
+    def proyecto_existe(self, id_proyecto):
+        return any(proyecto.id == id_proyecto for proyecto in self.proyectos)
+    
+    def agregar_subtarea_a_tarea_en_proyecto(self, id_proyecto, id_tarea, subtarea):
+        if not self.proyecto_existe(id_proyecto):
+            return False
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                return proyecto.agregar_subtarea_a_tarea(id_tarea, subtarea)
+        return False
+
+    def eliminar_subtarea_de_tarea_en_proyecto(self, id_proyecto, id_tarea, id_subtarea):
+        if not self.proyecto_existe(id_proyecto):
+            return False
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                return proyecto.eliminar_subtarea_de_tarea(id_tarea, id_subtarea)
+        return False
+
+    def actualizar_subtarea_en_tarea_en_proyecto(self, id_proyecto, id_tarea, id_subtarea, **kwargs):
+        if not self.proyecto_existe(id_proyecto):
+            return False
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                return proyecto.actualizar_subtarea_en_tarea(id_tarea, id_subtarea, **kwargs)
+        return False
+    
+    def listar_subtareas_de_tarea_en_proyecto(self, id_proyecto, id_tarea):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                for tarea in proyecto.tareas:
+                    if tarea.id == id_tarea:
+                        return tarea.subtareas
+        return []
 # Función para mostrar el menú de opciones
 def mostrar_menu():
-    print("\nMenú de Opciones")
+    print("Menú de Opciones")
     print("1. Agregar Proyecto")
     print("2. Modificar Proyecto")
-    print("3. Consultar Proyecto")
+    print("3. Buscar Proyecto")
     print("4. Eliminar Proyecto")
     print("5. Listar Proyectos")
-    print("6. Agregar Tarea al final del Proyecto")
-    print("7. Listar Tareas de un Proyecto")
-    print("8. Eliminar Tarea de un Proyecto")
-    print("9. Agregar Tarea en posición específica del Proyecto")
-    print("10. Buscar Tareas por nombre en un Proyecto")
-    print("11. Actualizar Tarea en un Proyecto")
-    print("12. Salir")
+    print("6. Agregar Tarea al Proyecto")
+    print("7. Listar Tareas de Proyecto")
+    print("8. Eliminar Tarea del Proyecto")
+    print("9. Agregar Tarea en Posición Específica del Proyecto")
+    print("10. Buscar Tareas por Nombre en Proyecto")
+    print("11. Actualizar Tarea en Proyecto")
+    print("12. Agregar Subtarea a Tarea")
+    print("13. Listar Subtareas de Tarea")
+    print("14. Eliminar Subtarea de Tarea")
+    print("15. Actualizar Subtarea de Tarea")
+    print("16. Salir")
 
 # Función principal
 def main():
@@ -343,37 +432,6 @@ def main():
                 print("No se encontraron tareas con ese nombre en el proyecto.")
 
         elif opcion == '11':
-            # Actualizar tarea en un proyecto
-            id_proyecto = input("ID del proyecto: ")
-            id_tarea = input("ID de la tarea a actualizar: ")
-            proyecto = gestor.buscar_proyecto('id', id_proyecto)
-            if proyecto:
-                print("Ingrese los nuevos datos de la tarea (deje en blanco para mantener los valores actuales):")
-                nombre_tarea = input("Nuevo nombre de la tarea: ")
-                empresa_cliente = input("Nueva empresa cliente: ")
-                descripcion = input("Nueva descripción: ")
-                fecha_vencimiento = input("Nueva fecha de vencimiento: ")
-                estado_actual = input("Nuevo estado actual: ")
-                porcentaje = input("Nuevo porcentaje completado: ")
-
-                kwargs = {
-                    'nombre': nombre_tarea,
-                    'empresa_cliente': empresa_cliente,
-                    'descripcion': descripcion,
-                    'fecha_vencimiento': fecha_vencimiento,
-                    'estado_actual': estado_actual,
-                    'porcentaje': porcentaje
-                }
-
-                if gestor.actualizar_tarea_en_proyecto(id_proyecto, id_tarea, **kwargs):
-                    print("Tarea actualizada exitosamente.")
-                else:
-                    print("No se pudo actualizar la tarea.")
-            else:
-                print("No se encontró el proyecto.")
-
-
-        elif opcion == '11':
     # Actualizar tarea en un proyecto
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea a actualizar: ")
@@ -403,9 +461,79 @@ def main():
             else:
                 print("No se encontró el proyecto.")
 
-            
-
         elif opcion == '12':
+            id_proyecto = input("ID del proyecto: ")
+            if not gestor.proyecto_existe(id_proyecto):
+                print("No se encontró el proyecto.")
+                continue
+
+            id_tarea = input("ID de la tarea: ")
+            id_subtarea = input("ID de la subtarea: ")
+            nombre_subtarea = input("Nombre de la subtarea: ")
+            descripcion = input("Descripción: ")
+            estado_actual = input("Estado actual: ")
+            porcentaje = input("Porcentaje completado: ")
+
+            nueva_subtarea = Subtarea(id_subtarea, nombre_subtarea, descripcion, estado_actual, porcentaje)
+            if gestor.agregar_subtarea_a_tarea_en_proyecto(id_proyecto, id_tarea, nueva_subtarea):
+                print("Subtarea agregada exitosamente.")
+            else:
+                print("No se encontró el proyecto o la tarea.")
+
+        elif opcion == '13':
+            id_proyecto = input("ID del proyecto: ")
+            if not gestor.proyecto_existe(id_proyecto):
+                print("No se encontró el proyecto.")
+                continue
+
+            id_tarea = input("ID de la tarea: ")
+            subtareas = gestor.listar_subtareas_de_tarea_en_proyecto(id_proyecto, id_tarea)
+            if subtareas:
+                for subtarea in subtareas:
+                    print(subtarea)
+            else:
+                print("No se encontraron subtareas para la tarea especificada.")
+
+        elif opcion == '14':
+            id_proyecto = input("ID del proyecto: ")
+            if not gestor.proyecto_existe(id_proyecto):
+                print("No se encontró el proyecto.")
+                continue
+
+            id_tarea = input("ID de la tarea: ")
+            id_subtarea = input("ID de la subtarea a eliminar: ")
+            if gestor.eliminar_subtarea_de_tarea_en_proyecto(id_proyecto, id_tarea, id_subtarea):
+                print("Subtarea eliminada exitosamente.")
+            else:
+                print("No se encontró el proyecto, la tarea o la subtarea.")    
+
+        elif opcion == '15':
+            id_proyecto = input("ID del proyecto: ")
+            if not gestor.proyecto_existe(id_proyecto):
+                print("No se encontró el proyecto.")
+                continue
+
+            id_tarea = input("ID de la tarea: ")
+            id_subtarea = input("ID de la subtarea a actualizar: ")
+            print("Ingrese los nuevos datos de la subtarea (deje en blanco para mantener los valores actuales):")
+            nombre_subtarea = input("Nuevo nombre de la subtarea: ")
+            descripcion = input("Nueva descripción: ")
+            estado_actual = input("Nuevo estado actual: ")
+            porcentaje = input("Nuevo porcentaje completado: ")
+
+            kwargs = {
+                'nombre': nombre_subtarea,
+                'descripcion': descripcion,
+                'estado_actual': estado_actual,
+                'porcentaje': porcentaje
+            }
+
+            if gestor.actualizar_subtarea_en_tarea_en_proyecto(id_proyecto, id_tarea, id_subtarea, **kwargs):
+                print("Subtarea actualizada exitosamente.")
+            else:
+                print("No se pudo actualizar la subtarea o no se encontró el proyecto, la tarea o la subtarea.")
+
+        elif opcion == '16':
             # Salir del programa
             print("Saliendo...")
             break

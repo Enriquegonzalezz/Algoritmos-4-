@@ -34,3 +34,36 @@ def listar_tareas_fecha(tareas, fecha_inicio = True, rango_fechas = None, fecha_
                         print(tarea)
     else:
         print("No hay tareas registradas para este proyecto.")
+
+def calcular_porcentaje_finalizacion(tareas):
+        tareas_completadas = sum(1 for tarea in tareas if tarea.estado_actual == 'completada')
+        total_tareas = len(tareas)
+        return (tareas_completadas / total_tareas) * 100 if total_tareas > 0 else 0
+
+# Método para calcular el tiempo restante aproximado para terminar el proyecto
+def calcular_tiempo_restante(proyecto):
+    fecha_venc = datetime.strptime(proyecto.fecha_vencimiento, '%Y-%m-%d')
+    tiempo_restante = fecha_venc - datetime.now()
+    return tiempo_restante.days if tiempo_restante.days > 0 else 0
+
+# Método para filtrar y mostrar proyectos
+def filtrar_mostrar_proyectos(proyectos, fecha_inicio=None, fecha_vencimiento=None, estado=None, empresa=None):
+    proyectos_filtrados = []
+    for proyecto in proyectos:  # Asumiendo que 'proyectos' es una lista de instancias de Proyecto
+        cumple_criterios = True
+        if fecha_inicio and proyecto.fecha_inicio != fecha_inicio:
+            cumple_criterios = False
+        if fecha_vencimiento and proyecto.fecha_vencimiento != fecha_vencimiento:
+            cumple_criterios = False
+        if estado and proyecto.estado != estado:
+            cumple_criterios = False
+        if empresa and proyecto.empresa.lower() != empresa.lower():
+            cumple_criterios = False
+        if cumple_criterios:
+            proyectos_filtrados.append(proyecto)
+    
+    for proyecto in proyectos_filtrados:
+        print(proyecto)
+        print(f"Porcentaje de finalización: {calcular_porcentaje_finalizacion(proyecto.tareas)}%")
+        print(f"Tiempo restante aproximado: {calcular_tiempo_restante(proyecto)} días")
+        print('-----------------------------------')

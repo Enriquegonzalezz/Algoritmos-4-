@@ -103,6 +103,36 @@ def main():
                 print("")
                 print("No hay proyectos registrados.")
 
+        # Listar Proyectos por Filtro
+        elif opciones.index("Listar Proyectos por Filtro") + 1 == int(eleccion):
+            proyectos = gestor.listar_proyectos()
+            if not proyectos:
+                print("")
+                print("No hay proyectos registrados.")
+            else:
+                print("Opciones de filtro:")
+                print("1. Por fecha")
+                print("2. Por nombre de empresa")
+                print("3. Por estatus")
+                filtro = input("Eleccion: ")
+                if filtro == "1":
+                    print("Opciones de fecha:")
+                    print("1. Fecha de Inicio")
+                    print("2. Fecha de Vencimiento")
+                    eleccion = input("Eleccion: ")
+                    fecha = input("Fecha: ")
+                    if eleccion == "1":
+                        filtrar_mostrar_proyectos(proyectos, fecha_inicio=fecha)
+                    else:
+                        filtrar_mostrar_proyectos(proyectos, fecha_vencimiento=fecha)
+                elif filtro == "2":
+                    empresa = input("Nombre de empresa: ")
+                    filtrar_mostrar_proyectos(proyectos, empresa=empresa)
+                else:
+                    estado = input("Estado: ")
+                    filtrar_mostrar_proyectos(proyectos, estado=estado)
+                continue
+
         # Agregar tarea al final del proyecto
         elif opciones.index("Agregar Tarea al Proyecto") + 1 == int(eleccion):
         

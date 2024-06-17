@@ -298,7 +298,11 @@ def main():
 
         elif opcion == '7':
             id_proyecto = input("ID del proyecto: ")
-            gestor.listar_tareas_de_proyecto(id_proyecto)
+            if not gestor.listar_tareas_de_proyecto(id_proyecto):
+                print("No se encontró el proyecto.")
+            else:
+                continue
+            
 
         elif opcion == '8':
             id_proyecto = input("ID del proyecto: ")

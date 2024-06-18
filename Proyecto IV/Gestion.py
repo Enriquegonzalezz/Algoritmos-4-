@@ -11,8 +11,8 @@ class GestorProyectos:
         self.asociar_subtareas()
 
     # Método para cargar los proyectos desde un archivo JSON
-    def obtener_proyectos(self, archivo):
-        proyectos_data = cargar_proyectos(archivo)
+    def obtener_proyectos(self):
+        proyectos_data = cargar_proyectos()
         proyectos = []
         for datos_proyecto in proyectos_data['proyectos']:
             proyecto = Proyecto(**datos_proyecto)

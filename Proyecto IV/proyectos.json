@@ -1,0 +1,37 @@
+{
+    "proyectos": [
+      {
+        "id": 1,
+        "nombre": "Proyecto Alpha",
+        "descripcion": "Descripción del Proyecto Alpha.",
+        "fecha_inicio": "2024-01-01",
+        "fecha_vencimiento": "2024-12-31",
+        "estado": "En progreso",
+        "empresa": "Empresa Alpha",
+        "gerente": "Gerente Alpha",
+        "equipo": ["Miembro1", "Miembro2", "Miembro3"],
+        "tareas": [
+          {
+            "id": 101,
+            "nombre": "Tarea 1",
+            "descripcion": "Descripción de la Tarea 1.",
+            "estado": "Completada",
+            "fecha_inicio": "2024-01-10",
+            "fecha_vencimiento": "2024-02-10",
+            "empresa_cliente": "Cliente de la Tarea 1",
+            "subtareas": [
+              {
+                "id": 1001,
+                "nombre": "Subtarea 1.1",
+                "descripcion": "Descripción de la Subtarea 1.1.",
+                "estado": "En progreso"
+              }
+            ]
+          }
+        ],
+        "pila_tareas_prioritarias": [
+        ]
+      }
+    ]
+  }
+  

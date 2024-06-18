@@ -1,7 +1,34 @@
+from Proyecto import Proyecto
+from Subtarea import Subtarea
+from Tarea import Tarea
+from Almacenamiento import cargar_subtareas, cargar_proyectos
+
 # Clase para gestionar los proyectos
 class GestorProyectos:
     def __init__(self):
-        self.proyectos = []
+        self.proyectos = self.obtener_proyectos("proyectos.json")
+        self.subtareas_por_tarea = cargar_subtareas("subtareas.json")
+        self.asociar_subtareas()
+
+    # Método para cargar los proyectos desde un archivo JSON
+    def obtener_proyectos(self, archivo):
+        proyectos_data = cargar_proyectos(archivo)
+        proyectos = []
+        for datos_proyecto in proyectos_data['proyectos']:
+            proyecto = Proyecto(**datos_proyecto)
+            proyecto.tareas = [Tarea(**datos_tarea) for datos_tarea in datos_proyecto.get('tareas', [])]
+            proyectos.append(proyecto)
+        return proyectos
+
+    # Método para asociar las subtareas cargadas a sus respectivas tareas en los proyectos
+    def asociar_subtareas(self):
+        for entrada in self.subtareas_por_tarea:
+            proyecto = self.obtener_proyecto(entrada['id_proyecto'])
+            if proyecto:
+                tarea = proyecto.buscar_tarea('id', entrada['id_tarea'])
+                if tarea:
+                    tarea.subtareas = [Subtarea(**datos_subtarea) for datos_subtarea in entrada['subtareas']]
+
     # Método para agregar un proyecto a la lista de proyectos
     def agregar_proyecto(self, proyecto):
         self.proyectos.append(proyecto)

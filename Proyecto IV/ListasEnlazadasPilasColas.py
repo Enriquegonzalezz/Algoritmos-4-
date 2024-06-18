@@ -5,6 +5,9 @@ from Subtarea import Subtarea
 from Tarea import Tarea
 from Gestion import GestorProyectos
 from Varias import mostrar_menu
+from Almacenamiento import (agregar_proyecto, actualizar_proyecto, eliminar_proyecto, agregar_subtarea_y_guardar,
+    modificar_subtarea_y_guardar, eliminar_subtarea_y_guardar
+)
 from Consultas import *
 
 # Función principal
@@ -30,6 +33,7 @@ def main():
 
             nuevo_proyecto = Proyecto(id, nombre, descripcion, fecha_inicio, fecha_vencimiento, estado, empresa, gerente, equipo)
             gestor.agregar_proyecto(nuevo_proyecto)
+            agregar_proyecto(nuevo_proyecto)
             print("")
             print("Proyecto agregado exitosamente.")
 
@@ -65,6 +69,7 @@ def main():
                 kwargs['equipo'] = equipo.split(",")
 
             if gestor.modificar_proyecto(id, **kwargs):
+                actualizar_proyecto(gestor.obtener_proyecto(id))
                 print("")
                 print("Proyecto modificado exitosamente.")
             else:
@@ -89,6 +94,7 @@ def main():
         elif opciones.index("Eliminar Proyecto") + 1 == int(eleccion):
             id = input("ID del proyecto a eliminar: ")
             if gestor.eliminar_proyecto(id):
+                eliminar_proyecto(id)
                 print("Proyecto eliminado exitosamente.")
             else:
                 print("Proyecto no encontrado")
@@ -148,6 +154,7 @@ def main():
 
             nueva_tarea = Tarea(id_tarea, nombre_tarea, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
             if gestor.agregar_tarea_al_final_de_proyecto(id_proyecto, nueva_tarea):
+                actualizar_proyecto(gestor.obtener_proyecto(id_proyecto))
                 print("Tarea agregada al final del proyecto exitosamente.")
             else:
                 print("No se encontró el proyecto.")
@@ -209,6 +216,7 @@ def main():
             id_proyecto = input("ID del proyecto: ")
             id_tarea = input("ID de la tarea a eliminar: ")
             if gestor.eliminar_tarea_de_proyecto(id_proyecto, id_tarea):
+                actualizar_proyecto(gestor.obtener_proyecto(id_proyecto))
                 print("Tarea eliminada exitosamente.")
             else:
                 print("No se encontró el proyecto o la tarea.")
@@ -229,6 +237,7 @@ def main():
 
             nueva_tarea = Tarea(id_tarea, nombre_tarea, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
             if gestor.agregar_tarea_en_posicion_de_proyecto(id_proyecto, posicion, nueva_tarea):
+                actualizar_proyecto(gestor.obtener_proyecto(id_proyecto))
                 print(f"Tarea agregada en la posición {posicion} del proyecto exitosamente.")
             else:
                 print("No se encontró el proyecto.")
@@ -267,8 +276,9 @@ def main():
                     'estado_actual': estado_actual,
                     'porcentaje': porcentaje
                 }
-
+                
                 if gestor.actualizar_tarea_en_proyecto(id_proyecto, id_tarea, **kwargs):
+                    actualizar_proyecto(gestor.obtener_proyecto(id_proyecto))
                     print("Tarea actualizada exitosamente.")
                 else:
                     print("No se pudo actualizar la tarea.")
@@ -291,6 +301,7 @@ def main():
 
             nueva_subtarea = Subtarea(id_subtarea, nombre_subtarea, descripcion, estado_actual, porcentaje)
             if gestor.agregar_subtarea_a_tarea_en_proyecto(id_proyecto, id_tarea, nueva_subtarea):
+                agregar_subtarea_y_guardar(id_tarea, nueva_subtarea, id_proyecto)
                 print("Subtarea agregada exitosamente.")
             else:
                 print("No se encontró el proyecto o la tarea.")
@@ -334,6 +345,7 @@ def main():
             id_tarea = input("ID de la tarea: ")
             id_subtarea = input("ID de la subtarea a eliminar: ")
             if gestor.eliminar_subtarea_de_tarea_en_proyecto(id_proyecto, id_tarea, id_subtarea):
+                eliminar_subtarea_y_guardar(id_tarea, id_subtarea, id_proyecto)
                 print("Subtarea eliminada exitosamente.")
             else:
                 print("No se encontró el proyecto, la tarea o la subtarea.")    
@@ -361,6 +373,7 @@ def main():
             }
 
             if gestor.actualizar_subtarea_en_tarea_en_proyecto(id_proyecto, id_tarea, id_subtarea, **kwargs):
+                modificar_subtarea_y_guardar(id_tarea, id_subtarea, id_proyecto, "subtareas.json", **kwargs)
                 print("Subtarea actualizada exitosamente.")
             else:
                 print("No se pudo actualizar la subtarea o no se encontró el proyecto, la tarea o la subtarea.")
@@ -379,6 +392,7 @@ def main():
 
             nueva_tarea = Tarea(id_tarea, nombre_tarea, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
             if gestor.agregar_tarea_prioritaria_a_proyecto(id_proyecto, nueva_tarea):
+                actualizar_proyecto(gestor.obtener_proyecto(id_proyecto))
                 print("Tarea prioritaria agregada al proyecto exitosamente.")
             else:
                 print("No se encontró el proyecto.")
@@ -389,6 +403,7 @@ def main():
             id_proyecto = input("ID del proyecto: ")
             tarea_prioritaria_eliminada = gestor.eliminar_tarea_prioritaria_de_proyecto(id_proyecto)
             if tarea_prioritaria_eliminada:
+                actualizar_proyecto(gestor.obtener_proyecto(id_proyecto))
                 print(f"Tarea prioritaria eliminada del proyecto: {tarea_prioritaria_eliminada.nombre}")
             else:
                 print("No se encontró el proyecto o no hay tareas prioritarias.")

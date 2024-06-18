@@ -6,8 +6,8 @@ from Almacenamiento import cargar_subtareas, cargar_proyectos
 # Clase para gestionar los proyectos
 class GestorProyectos:
     def __init__(self):
-        self.proyectos = self.obtener_proyectos("proyectos.json")
-        self.subtareas_por_tarea = cargar_subtareas("subtareas.json")
+        self.proyectos = self.obtener_proyectos()
+        self.subtareas_por_tarea = cargar_subtareas()
         self.asociar_subtareas()
 
     # Método para cargar los proyectos desde un archivo JSON
@@ -15,15 +15,18 @@ class GestorProyectos:
         proyectos_data = cargar_proyectos()
         proyectos = []
         for datos_proyecto in proyectos_data['proyectos']:
-            proyecto = Proyecto(**datos_proyecto)
-            proyecto.tareas = [Tarea(**datos_tarea) for datos_tarea in datos_proyecto.get('tareas', [])]
+            proyecto = Proyecto(**{key: value for key, value in datos_proyecto.items() if key not in ['tareas', 'pila_tareas_prioritarias']})
+            proyecto.tareas = [Tarea(**{key: value for key, value in datos_tarea.items() if key != 'subtareas'}) for datos_tarea in datos_proyecto.get('tareas', [])]
             proyectos.append(proyecto)
         return proyectos
 
     # Método para asociar las subtareas cargadas a sus respectivas tareas en los proyectos
     def asociar_subtareas(self):
-        for entrada in self.subtareas_por_tarea:
-            proyecto = self.obtener_proyecto(entrada['id_proyecto'])
+        for entrada in self.subtareas_por_tarea['subtareas_por_tarea']:
+            if isinstance(entrada, dict):
+                proyecto = self.obtener_proyecto(entrada['id_proyecto'])
+            else:
+                proyecto = None
             if proyecto:
                 tarea = proyecto.buscar_tarea('id', entrada['id_tarea'])
                 if tarea:

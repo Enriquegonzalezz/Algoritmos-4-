@@ -373,7 +373,7 @@ def main():
             }
 
             if gestor.actualizar_subtarea_en_tarea_en_proyecto(id_proyecto, id_tarea, id_subtarea, **kwargs):
-                modificar_subtarea_y_guardar(id_tarea, id_subtarea, id_proyecto, "subtareas.json", **kwargs)
+                modificar_subtarea_y_guardar(id_tarea, id_subtarea, id_proyecto, **kwargs)
                 print("Subtarea actualizada exitosamente.")
             else:
                 print("No se pudo actualizar la subtarea o no se encontró el proyecto, la tarea o la subtarea.")

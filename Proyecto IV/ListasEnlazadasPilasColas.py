@@ -309,6 +309,20 @@ def main():
                     print(subtarea)
             else:
                 print("No se encontraron subtareas para la tarea especificada.")
+        
+        # Listar Subtareas de Tarea y las Tareas
+        elif opciones.index("Listar Subtareas de Tarea y las Tareas") + 1 == int(eleccion):
+            id_proyecto = input("ID del proyecto: ")
+            if not gestor.proyecto_existe(id_proyecto):
+                print("No se encontró el proyecto.")
+                continue
+
+            for tarea in proyectos.tareas:
+                subtareas = gestor.listar_subtareas_de_tarea_en_proyecto(id_proyecto, tarea.id)
+                if subtareas:
+                    listar_subtareas_tareas(subtareas, tarea)
+                else:
+                    print("No se encontraron subtareas para la tarea {0}.".format(tarea.id))
 
         # Eliminar Subtarea de Tarea
         elif opciones.index("Eliminar Subtarea de Tarea") + 1 == int(eleccion):

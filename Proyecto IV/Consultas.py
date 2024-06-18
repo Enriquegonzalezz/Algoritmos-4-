@@ -67,3 +67,8 @@ def filtrar_mostrar_proyectos(proyectos, fecha_inicio=None, fecha_vencimiento=No
         print(f"Porcentaje de finalización: {calcular_porcentaje_finalizacion(proyecto.tareas)}%")
         print(f"Tiempo restante aproximado: {calcular_tiempo_restante(proyecto)} días")
         print('-----------------------------------')
+
+def listar_subtareas_tareas(subtareas, tarea):
+        print(str(tarea))
+        for subtarea in subtareas:
+            print(f"  - {subtarea}")

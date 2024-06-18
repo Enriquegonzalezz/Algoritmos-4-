@@ -6,7 +6,7 @@ def mostrar_menu():
         "Eliminar Tarea del Proyecto", "Agregar Tarea en Posición Específica del Proyecto", "Buscar Tareas por Nombre en Proyecto",
         "Actualizar Tarea en Proyecto", "Agregar Subtarea a Tarea", "Listar Subtareas de Tarea", "Listar Subtareas de Tarea y las Tareas", "Eliminar Subtarea de Tarea",
         "Actualizar Subtarea de Tarea", "Agregar Tarea Prioritaria", "Eliminar Tarea Prioritaria de la Cima",
-        "Consultar Tarea Prioritaria en la Cima", "Salir"
+        "Consultar Tarea Prioritaria en la Cima", "Consultar Tiempo de las Tareas Prioritarias", "Salir"
     ]
     print("Menú de Opciones")
     for opcion in opciones:

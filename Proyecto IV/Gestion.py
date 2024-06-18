@@ -2,6 +2,7 @@ from Proyecto import Proyecto
 from Subtarea import Subtarea
 from Tarea import Tarea
 from Almacenamiento import cargar_subtareas, cargar_proyectos
+from datetime import datetime
 
 # Clase para gestionar los proyectos
 class GestorProyectos:
@@ -178,4 +179,15 @@ class GestorProyectos:
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
                 return proyecto.consultar_tarea_prioritaria()
+        return None
+    
+    def consultar_tiempo_tareas_prioritarias(self, id_proyecto):
+        for proyecto in self.proyectos:
+            if proyecto.id == id_proyecto:
+                tareas = proyecto.consultar_tareas_prioritaria()
+                if tareas:
+                    total = 0
+                    for tarea in tareas:
+                        total += datetime.strptime(proyecto.fecha_vencimiento, '%Y-%m-%d') - tarea.fecha_inicio
+                    return total
         return None

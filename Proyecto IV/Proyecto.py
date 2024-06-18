@@ -117,3 +117,9 @@ class Proyecto:
             return self.pila_tareas_prioritarias[-1]
         else:
             return None
+        
+    def consultar_tareas_prioritaria(self):
+        if self.pila_tareas_prioritarias:
+            return self.pila_tareas_prioritarias
+        else:
+            return None

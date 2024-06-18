@@ -418,6 +418,15 @@ def main():
             else:
                 print("No se encontró el proyecto o no hay tareas prioritarias.")
 
+        elif opciones.index("Consultar Tiempo de las Tareas Prioritarias") + 1 == int(eleccion):
+
+            id_proyecto = input("ID del proyecto: ")
+            tiempo = gestor.consultar_tiempo_tareas_prioritarias(id_proyecto)
+            if tiempo:
+                print(f"Tiempo de las Tareas prioritarias del proyecto: {tiempo}")
+            else:
+                print("No se encontró el proyecto o no hay tareas prioritarias.")
+
         # Salir del programa
         elif opciones.index("Salir") + 1 == int(eleccion):
             # Salir del programa

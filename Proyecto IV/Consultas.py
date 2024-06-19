@@ -36,7 +36,7 @@ def listar_tareas_fecha(tareas, fecha_inicio = True, rango_fechas = None, fecha_
         print("No hay tareas registradas para este proyecto.")
 
 def calcular_porcentaje_finalizacion(tareas):
-        tareas_completadas = sum(1 for tarea in tareas if tarea.estado_actual == 'completada')
+        tareas_completadas = sum(1 for tarea in tareas if tarea.estado_actual == 'Completado')
         total_tareas = len(tareas)
         return (tareas_completadas / total_tareas) * 100 if total_tareas > 0 else 0
 

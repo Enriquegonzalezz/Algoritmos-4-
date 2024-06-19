@@ -1,3 +1,5 @@
+from datetime import datetime
+
 # Función para mostrar el menú de opciones
 def mostrar_menu():
     opciones = ["Agregar Proyecto", "Modificar Proyecto", "Buscar Proyecto", "Eliminar Proyecto",
@@ -13,3 +15,16 @@ def mostrar_menu():
         print(f"{opciones.index(opcion) + 1}. {opcion}")
 
     return opciones
+
+def es_fecha(fecha):
+    try:
+        datetime.strptime(fecha, '%Y-%m-%d')
+        return True
+    except:
+        return False
+
+def comprobar_fecha(fecha):
+    if es_fecha(fecha):
+        return fecha
+    else:
+        return comprobar_fecha(input("Fecha en el formato incorrecto por favor ingresela en el formato(YYYY-MM-DD): ")) 

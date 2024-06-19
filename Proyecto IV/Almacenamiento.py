@@ -29,9 +29,9 @@ def agregar_proyecto(proyecto):
 # Método para actualizar un proyecto en el proyectos_file JSON
 def actualizar_proyecto(proyecto):
     proyectos = cargar_proyectos()
-    for proyecto in proyectos['proyectos']:
-        if proyecto['id'] == proyecto.id:
-            proyecto.update(proyecto.__dict__)
+    for proyectoJ in proyectos['proyectos']:
+        if proyectoJ['id'] == proyecto.id:
+            proyectoJ.update(proyecto.__dict__)
     guardar_proyectos(proyectos)
 
 # Método para eliminar un proyecto del proyectos_file JSON

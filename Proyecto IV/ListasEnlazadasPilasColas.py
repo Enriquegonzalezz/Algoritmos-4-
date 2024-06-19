@@ -4,7 +4,7 @@ from Proyecto import Proyecto
 from Subtarea import Subtarea
 from Tarea import Tarea
 from Gestion import GestorProyectos
-from Varias import mostrar_menu
+from Varias import mostrar_menu, comprobar_fecha
 from Almacenamiento import (agregar_proyecto, actualizar_proyecto, eliminar_proyecto, agregar_subtarea_y_guardar,
     modificar_subtarea_y_guardar, eliminar_subtarea_y_guardar
 )
@@ -24,8 +24,8 @@ def main():
             id = input("ID: ")
             nombre = input("Nombre: ")
             descripcion = input("Descripción: ")
-            fecha_inicio = input("Fecha de Inicio (YYYY-MM-DD): ")
-            fecha_vencimiento = input("Fecha de Vencimiento (YYYY-MM-DD): ")
+            fecha_inicio = comprobar_fecha(input("Fecha de Inicio (YYYY-MM-DD): "))
+            fecha_vencimiento = comprobar_fecha(input("Fecha de Vencimiento (YYYY-MM-DD): "))
             estado = input("Estado: ")
             empresa = input("Empresa: ")
             gerente = input("Gerente: ")
@@ -43,8 +43,8 @@ def main():
             print("Ingrese los nuevos datos del proyecto (deje en blanco para no modificar):")
             nombre = input("Nombre: ")
             descripcion = input("Descripción: ")
-            fecha_inicio = input("Fecha de Inicio (YYYY-MM-DD): ")
-            fecha_vencimiento = input("Fecha de Vencimiento (YYYY-MM-DD): ")
+            fecha_inicio = comprobar_fecha(input("Fecha de Inicio (YYYY-MM-DD): "))
+            fecha_vencimiento = comprobar_fecha(input("Fecha de Vencimiento (YYYY-MM-DD): "))
             estado = input("Estado: ")
             empresa = input("Empresa: ")
             gerente = input("Gerente: ")
@@ -126,7 +126,7 @@ def main():
                     print("1. Fecha de Inicio")
                     print("2. Fecha de Vencimiento")
                     eleccion = input("Eleccion: ")
-                    fecha = input("Fecha: ")
+                    fecha = comprobar_fecha(input("Fecha: "))
                     if eleccion == "1":
                         filtrar_mostrar_proyectos(proyectos, fecha_inicio=fecha)
                     else:
@@ -147,8 +147,8 @@ def main():
             nombre_tarea = input("Nombre de la tarea: ")
             empresa_cliente = input("Empresa cliente: ")
             descripcion = input("Descripción: ")
-            fecha_inicio = datetime.date.today()
-            fecha_vencimiento = input("Fecha de vencimiento (YYYY-MM-DD): ")
+            fecha_inicio = datetime.date()
+            fecha_vencimiento = comprobar_fecha(input("Fecha de Vencimiento (YYYY-MM-DD): "))
             estado_actual = input("Estado actual: ")
             porcentaje = input("Porcentaje completado: ")
 
@@ -199,8 +199,8 @@ def main():
                 print("3. Antes de")
                 filtro = input("Eleccion: ")
                 if filtro == "1":
-                    despues = datetime.strptime(input("Fecha despues de (YYYY-MM-DD): "))
-                    antes = datetime.strptime(input("Fecha antes de (YYYY-MM-DD): ")) 
+                    despues = datetime.strptime(comprobar_fecha(input("Fecha despues de (YYYY-MM-DD): ")))
+                    antes = datetime.strptime(comprobar_fecha(input("Fecha antes de (YYYY-MM-DD): "))) 
                     listar_tareas_fecha(proyecto.tareas, fecha_inicio, [despues, antes])
                 else:
                     if filtro == "2":
@@ -230,7 +230,7 @@ def main():
             empresa_cliente = input("Empresa cliente: ")
             descripcion = input("Descripción: ")
             fecha_inicio = datetime.date.today()
-            fecha_vencimiento = input("Fecha de vencimiento (YYYY-MM-DD): ")
+            fecha_vencimiento = comprobar_fecha(input("Fecha de Vencimiento (YYYY-MM-DD): "))
             estado_actual = input("Estado actual: ")
             porcentaje = input("Porcentaje completado: ")
             posicion = int(input("Posición en la lista de tareas: "))
@@ -264,7 +264,7 @@ def main():
                 nombre_tarea = input("Nuevo nombre de la tarea: ")
                 empresa_cliente = input("Nueva empresa cliente: ")
                 descripcion = input("Nueva descripción: ")
-                fecha_vencimiento = input("Nueva fecha de vencimiento: ")
+                fecha_vencimiento = comprobar_fecha(input("Fecha de Vencimiento (YYYY-MM-DD): "))
                 estado_actual = input("Nuevo estado actual: ")
                 porcentaje = input("Nuevo porcentaje completado: ")
 
@@ -386,7 +386,7 @@ def main():
             empresa_cliente = input("Empresa cliente: ")
             descripcion = input("Descripción: ")
             fecha_inicio = datetime.date.today()
-            fecha_vencimiento = input("Fecha de vencimiento (YYYY-MM-DD): ")
+            fecha_vencimiento = comprobar_fecha(input("Fecha de Vencimiento (YYYY-MM-DD): "))
             estado_actual = input("Estado actual: ")
             porcentaje = input("Porcentaje completado: ")
 

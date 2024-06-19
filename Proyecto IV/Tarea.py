@@ -49,3 +49,15 @@ class Tarea:
         total = len(self.subtareas)
         completadas = sum(1 for subtarea in self.subtareas if subtarea.estado_actual == 'Completado')
         self.porcentaje = (completadas / total) * 100
+
+    def a_diccionario(self):
+        return {
+            "id": self.id,
+            "nombre": self.nombre,
+            "empresa_cliente": self.empresa_cliente,
+            "descripcion": self.descripcion,
+            "fecha_inicio": self.fecha_inicio,
+            "fecha_vencimiento": self.fecha_vencimiento,
+            "estado_actual": self.estado_actual,
+            "porcentaje": self.porcentaje
+        }

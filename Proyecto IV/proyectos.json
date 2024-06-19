@@ -1,56 +1,55 @@
 {
     "proyectos": [
         {
-            "id": "2",
-            "nombre": "nani",
-            "descripcion": "d",
-            "fecha_inicio": "2024-05-01",
-            "fecha_vencimiento": "2024-08-20",
-            "estado": "d",
-            "empresa": "d",
-            "gerente": "d",
+            "id": "0",
+            "nombre": "Alpha",
+            "descripcion": "Tareas para empresa Alpha",
+            "fecha_inicio": "2024-01-21 00:00:00",
+            "fecha_vencimiento": "2024-02-21 00:00:00",
+            "estado": "En progreso",
+            "empresa": "APH",
+            "gerente": "Sony Sarkis",
             "equipo": [
-                "d"
+                "Angelo",
+                " Enrique",
+                " Sony"
             ],
             "tareas": [],
             "pila_tareas_prioritarias": []
         },
         {
             "id": "1",
-            "nombre": "sonido",
-            "descripcion": "s",
-            "fecha_inicio": "2024-08-10 00:00:00",
-            "fecha_vencimiento": "2024-01-10 00:00:00",
-            "estado": "s",
-            "empresa": "s",
-            "gerente": "s",
+            "nombre": "Omega",
+            "descripcion": "Tareas para empresa OMG",
+            "fecha_inicio": "2024-12-01 00:00:00",
+            "fecha_vencimiento": "2025-01-20 00:00:00",
+            "estado": "En progreso",
+            "empresa": "OMG",
+            "gerente": "Angelo",
             "equipo": [
-                "s"
+                "Enrique",
+                " Sony",
+                " Angelo"
             ],
-            "tareas": [
-                {
-                    "id": "1",
-                    "nombre": "Tarea 1",
-                    "empresa_cliente": "Empresa",
-                    "descripcion": "Hola",
-                    "fecha_inicio": "2024-06-19 00:00:00",
-                    "fecha_vencimiento": "2024-12-03 00:00:00",
-                    "estado_actual": "Compleatada",
-                    "porcentaje": "100"
-                }
+            "tareas": [],
+            "pila_tareas_prioritarias": []
+        },
+        {
+            "id": "2",
+            "nombre": "Landa",
+            "descripcion": "Tareas para LND",
+            "fecha_inicio": "2023-01-20 00:00:00",
+            "fecha_vencimiento": "2024-03-20 00:00:00",
+            "estado": "En progreso ",
+            "empresa": "LND",
+            "gerente": "Enrique",
+            "equipo": [
+                "Sony",
+                " Angelo",
+                " Enrique"
             ],
-            "pila_tareas_prioritarias": [
-                {
-                    "id": "1",
-                    "nombre": "Tarea priori 1",
-                    "empresa_cliente": "Apple",
-                    "descripcion": "Hola",
-                    "fecha_inicio": "2024-06-19 00:00:00",
-                    "fecha_vencimiento": "2024-02-03 00:00:00",
-                    "estado_actual": "Completado",
-                    "porcentaje": "100"
-                }
-            ]
+            "tareas": [],
+            "pila_tareas_prioritarias": []
         }
     ]
 }

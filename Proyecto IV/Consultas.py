@@ -42,7 +42,7 @@ def calcular_porcentaje_finalizacion(tareas):
 
 # Método para calcular el tiempo restante aproximado para terminar el proyecto
 def calcular_tiempo_restante(proyecto):
-    fecha_venc = proyecto.fecha_vencimiento, '%Y-%m-%d'
+    fecha_venc = proyecto.fecha_vencimiento
     tiempo_restante = fecha_venc - datetime.now()
     return tiempo_restante.days if tiempo_restante.days > 0 else 0
 

@@ -12,6 +12,26 @@
                     "porcentaje": "100"
                 }
             ]
+        },
+        {
+            "id_proyecto": "0",
+            "id_tarea": "1",
+            "subtareas": [
+                {
+                    "id": "1",
+                    "nombre": "Recibo pago",
+                    "descripcion": "LLevar recibo de pago a la oficina MDN",
+                    "estado_actual": "En progreso",
+                    "porcentaje": "50"
+                },
+                {
+                    "id": "2",
+                    "nombre": "Mouse",
+                    "descripcion": "Llevar mouse para la oficina MDN",
+                    "estado_actual": "Incompleto",
+                    "porcentaje": "0"
+                }
+            ]
         }
     ]
 }

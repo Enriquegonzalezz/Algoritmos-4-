@@ -16,17 +16,38 @@
             ],
             "tareas": [
                 {
-                    "id": "0",
-                    "nombre": "Asignaciones APH",
-                    "empresa_cliente": "MDN",
-                    "descripcion": "Conjunto de operaciones y sistemas realizados para MDN",
+                    "id": "1",
+                    "nombre": "Tarea para APH",
+                    "empresa_cliente": "APH",
+                    "descripcion": "Velocidad mejora en sistemas contables",
                     "fecha_inicio": "2024-06-19 00:00:00",
                     "fecha_vencimiento": "2025-01-01 00:00:00",
                     "estado_actual": "Incompleto",
-                    "porcentaje": "45"
+                    "porcentaje": "9"
                 }
             ],
-            "pila_tareas_prioritarias": []
+            "pila_tareas_prioritarias": [
+                {
+                    "id": "1",
+                    "nombre": "URGENT! Arreglar BUG M\u00f3dulo INVENTARIO",
+                    "empresa_cliente": "MDN",
+                    "descripcion": "Bug que no permite el control del conteo del inventario ",
+                    "fecha_inicio": "2024-06-19 00:00:00",
+                    "fecha_vencimiento": "2024-06-28 00:00:00",
+                    "estado_actual": "En progreso",
+                    "porcentaje": "80"
+                },
+                {
+                    "id": "2",
+                    "nombre": "NEW BUG",
+                    "empresa_cliente": "MDN",
+                    "descripcion": "Otro bug nuevo, arreglar lo antes posible ",
+                    "fecha_inicio": "2024-06-19 00:00:00",
+                    "fecha_vencimiento": "2024-07-01 00:00:00",
+                    "estado_actual": "Incompleto",
+                    "porcentaje": "6"
+                }
+            ]
         },
         {
             "id": "1",
@@ -62,7 +83,7 @@
             "descripcion": "Tareas para LND",
             "fecha_inicio": "2023-01-20 00:00:00",
             "fecha_vencimiento": "2024-03-20 00:00:00",
-            "estado": "En progreso ",
+            "estado": "En progreso",
             "empresa": "LND",
             "gerente": "Enrique",
             "equipo": [

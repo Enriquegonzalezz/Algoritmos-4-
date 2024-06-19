@@ -147,7 +147,7 @@ def main():
             nombre_tarea = input("Nombre de la tarea: ")
             empresa_cliente = input("Empresa cliente: ")
             descripcion = input("Descripción: ")
-            fecha_inicio = datetime.date()
+            fecha_inicio = datetime.now().strftime('%Y-%m-%d')
             fecha_vencimiento = comprobar_fecha(input("Fecha de Vencimiento (YYYY-MM-DD): "))
             estado_actual = input("Estado actual: ")
             porcentaje = input("Porcentaje completado: ")

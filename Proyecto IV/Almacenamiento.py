@@ -31,7 +31,9 @@ def actualizar_proyecto(proyecto):
     proyectos = cargar_proyectos()
     for proyectoJ in proyectos['proyectos']:
         if proyectoJ['id'] == proyecto.id:
-            proyectoJ.update(proyecto.__dict__)
+            ProyectoDict = proyecto.__dict__
+            ProyectoDict['tareas'] = [tarea.__dict__ for tarea in proyecto.tareas]
+            proyectoJ.update(ProyectoDict)
     guardar_proyectos(proyectos)
 
 # Método para eliminar un proyecto del proyectos_file JSON

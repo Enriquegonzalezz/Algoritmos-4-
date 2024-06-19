@@ -27,7 +27,19 @@
             "equipo": [
                 "s"
             ],
-            "tareas": [],
+            "tareas": [
+                {
+                    "id": "1",
+                    "nombre": "Hola",
+                    "empresa_cliente": " ",
+                    "descripcion": " ",
+                    "fecha_inicio": "2024-06-18",
+                    "fecha_vencimiento": "2024-12-02",
+                    "estado_actual": "Completada",
+                    "porcentaje": "100",
+                    "subtareas": []
+                }
+            ],
             "pila_tareas_prioritarias": []
         }
     ]

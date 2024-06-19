@@ -3,7 +3,7 @@ from Proyecto import Proyecto
 from Subtarea import Subtarea
 from Tarea import Tarea
 from Gestion import GestorProyectos
-from Varias import mostrar_menu, comprobar_fecha
+from Varias import mostrar_menu, comprobar_fecha, verificar_convertir
 from Almacenamiento import (agregar_proyecto, actualizar_proyecto, eliminar_proyecto, agregar_subtarea_y_guardar,
     modificar_subtarea_y_guardar, eliminar_subtarea_y_guardar
 )
@@ -59,9 +59,9 @@ def main():
             if descripcion:
                 kwargs['descripcion'] = descripcion
             if fecha_inicio:
-                kwargs['fecha_inicio'] = comprobar_fecha(fecha_inicio)
+                kwargs['fecha_inicio'] = verificar_convertir(comprobar_fecha(fecha_inicio))
             if fecha_vencimiento:
-                kwargs['fecha_vencimiento'] = comprobar_fecha(fecha_vencimiento)
+                kwargs['fecha_vencimiento'] = verificar_convertir(comprobar_fecha(fecha_vencimiento))
             if estado:
                 kwargs['estado'] = estado
             if empresa:
@@ -279,7 +279,7 @@ def main():
                 if empresa_cliente:
                     kwargs['empresa_cliente'] = empresa_cliente
                 if fecha_vencimiento:
-                    kwargs['fecha_vencimiento'] = comprobar_fecha(fecha_vencimiento)
+                    kwargs['fecha_vencimiento'] = verificar_convertir(comprobar_fecha(fecha_vencimiento))
                 if estado_actual:
                     kwargs['estado_actual'] = estado_actual
                 if porcentaje:

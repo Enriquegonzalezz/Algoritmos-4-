@@ -185,10 +185,10 @@ class GestorProyectos:
     def consultar_tiempo_tareas_prioritarias(self, id_proyecto):
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
-                tareas = proyecto.consultar_tareas_prioritaria()
+                tareas = proyecto.obtener_tareas_prioritarias()
                 if len(tareas) > 0:
                     total = timedelta()
                     for tarea in tareas:
-                        total += proyecto.fecha_vencimiento - tarea.fecha_inicio
+                        total += tarea.fecha_vencimiento - tarea.fecha_inicio
                     return total
         return None

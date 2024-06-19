@@ -131,9 +131,9 @@ def main():
                     eleccion = input("Eleccion: ")
                     fecha = comprobar_fecha(input("Fecha: "))
                     if eleccion == "1":
-                        filtrar_mostrar_proyectos(proyectos, fecha_inicio=fecha)
+                        filtrar_mostrar_proyectos(proyectos, fecha_inicio=verificar_convertir(fecha))
                     else:
-                        filtrar_mostrar_proyectos(proyectos, fecha_vencimiento=fecha)
+                        filtrar_mostrar_proyectos(proyectos, fecha_vencimiento=verificar_convertir(fecha))
                 elif filtro == "2":
                     empresa = input("Nombre de empresa: ")
                     filtrar_mostrar_proyectos(proyectos, empresa=empresa)

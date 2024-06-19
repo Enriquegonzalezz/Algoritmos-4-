@@ -1,26 +1,13 @@
 {
     "subtareas_por_tarea": [
         {
-            "id_proyecto": 1,
-            "id_tarea": 101,
-            "subtareas": [
-                {
-                    "id": 1001,
-                    "nombre": "Subtarea 1",
-                    "descripcion": "Descripci\u00c3\u00b3n de la Subtarea 1",
-                    "estado_actual": "En progreso",
-                    "porcentaje": 50
-                }
-            ]
-        },
-        {
             "id_proyecto": "1",
             "id_tarea": "1",
             "subtareas": [
                 {
                     "id": "1",
-                    "nombre": "Sub 1",
-                    "descripcion": "hola",
+                    "nombre": "Subtarea 1",
+                    "descripcion": "Subtarea 1",
                     "estado_actual": "Completado",
                     "porcentaje": "100"
                 }

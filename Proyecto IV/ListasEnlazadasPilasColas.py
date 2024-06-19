@@ -271,17 +271,19 @@ def main():
                 estado_actual = input("Nuevo estado actual: ")
                 porcentaje = input("Nuevo porcentaje completado: ")
 
+                kwargs = {}
+                if nombre_tarea:
+                    kwargs['nombre'] = nombre_tarea
+                if descripcion:
+                    kwargs['descripcion'] = descripcion
+                if empresa_cliente:
+                    kwargs['empresa_cliente'] = empresa_cliente
                 if fecha_vencimiento:
-                    fecha_vencimiento = comprobar_fecha(fecha_vencimiento)
-
-                kwargs = {
-                    'nombre': nombre_tarea,
-                    'empresa_cliente': empresa_cliente,
-                    'descripcion': descripcion,
-                    'fecha_vencimiento': fecha_vencimiento,
-                    'estado_actual': estado_actual,
-                    'porcentaje': porcentaje
-                }
+                    kwargs['fecha_vencimiento'] = comprobar_fecha(fecha_vencimiento)
+                if estado_actual:
+                    kwargs['estado_actual'] = estado_actual
+                if porcentaje:
+                    kwargs['porcentaje'] = porcentaje
                 
                 if gestor.actualizar_tarea_en_proyecto(id_proyecto, id_tarea, **kwargs):
                     actualizar_proyecto(gestor.obtener_proyecto(id_proyecto))
@@ -378,6 +380,16 @@ def main():
                 'estado_actual': estado_actual,
                 'porcentaje': porcentaje
             }
+
+            kwargs = {}
+            if nombre_subtarea:
+                kwargs['nombre'] = nombre_subtarea
+            if descripcion:
+                kwargs['descripcion'] = descripcion
+            if estado_actual:
+                kwargs['estado_actual'] = estado_actual
+            if porcentaje:
+                kwargs['porcentaje'] = porcentaje
 
             if gestor.actualizar_subtarea_en_tarea_en_proyecto(id_proyecto, id_tarea, id_subtarea, **kwargs):
                 modificar_subtarea_y_guardar(id_tarea, id_subtarea, id_proyecto, **kwargs)

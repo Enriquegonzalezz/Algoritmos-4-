@@ -19,7 +19,7 @@ def cargar_proyectos():
 # Método para guardar los proyectos en un proyectos_file JSON
 def guardar_proyectos(proyectos):
     with open(proyectos_file, 'w') as file:
-        json.dump(proyectos, file, indent=4)
+        json.dump(proyectos, file, indent=4, default=str)
 
 # Método para agregar un proyecto al proyectos_file JSON
 def agregar_proyecto(proyecto):
@@ -52,7 +52,7 @@ def cargar_subtareas():
 # Método para guardar las subtareas en un subtareas_file JSON
 def guardar_subtareas(subtareas_por_tarea):
     with open(subtareas_file, 'w') as file:
-        json.dump(subtareas_por_tarea, file, indent=4)
+        json.dump(subtareas_por_tarea, file, indent=4, default=str)
 
 # Método para agregar una subtarea a la tarea y guardar el cambio en el subtareas_file JSON
 def agregar_subtarea_y_guardar(id_tarea, subtarea, id_proyecto):
@@ -75,7 +75,7 @@ def modificar_subtarea_y_guardar(id_tarea, id_subtarea, id_proyecto, **kwargs):
     for entrada in subtareas_por_tarea['subtareas_por_tarea']:
         if entrada['id_proyecto'] == id_proyecto and entrada['id_tarea'] == id_tarea:
             for subtarea in entrada['subtareas']:
-                if subtarea['id_subtarea'] == id_subtarea:
+                if subtarea['id'] == id_subtarea:
                     subtarea.update(kwargs)
                     guardar_subtareas(subtareas_por_tarea)
                     return True
@@ -86,7 +86,7 @@ def eliminar_subtarea_y_guardar(id_tarea, id_subtarea, id_proyecto):
     subtareas_por_tarea = cargar_subtareas()
     for entrada in subtareas_por_tarea['subtareas_por_tarea']:
         if entrada['id_proyecto'] == id_proyecto and entrada['id_tarea'] == id_tarea:
-            entrada['subtareas'] = [subtarea for subtarea in entrada['subtareas'] if subtarea['id_subtarea'] != id_subtarea]
+            entrada['subtareas'] = [subtarea for subtarea in entrada['subtareas'] if subtarea['id'] != id_subtarea]
             guardar_subtareas(subtareas_por_tarea)
             return True
     return False

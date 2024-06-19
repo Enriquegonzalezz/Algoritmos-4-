@@ -19,8 +19,8 @@
             "id": "1",
             "nombre": "sonido",
             "descripcion": "s",
-            "fecha_inicio": "2024-08-10",
-            "fecha_vencimiento": "2024-01-10",
+            "fecha_inicio": "2024-08-10 00:00:00",
+            "fecha_vencimiento": "2024-01-10 00:00:00",
             "estado": "s",
             "empresa": "s",
             "gerente": "s",
@@ -33,8 +33,8 @@
                     "nombre": "Tarea 1",
                     "empresa_cliente": "Empresa",
                     "descripcion": "Hola",
-                    "fecha_inicio": "2024-06-19",
-                    "fecha_vencimiento": "2024-12-03",
+                    "fecha_inicio": "2024-06-19 00:00:00",
+                    "fecha_vencimiento": "2024-12-03 00:00:00",
                     "estado_actual": "Compleatada",
                     "porcentaje": "100"
                 }

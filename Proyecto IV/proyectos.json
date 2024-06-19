@@ -4,8 +4,8 @@
             "id": "0",
             "nombre": "Alpha",
             "descripcion": "Tareas para empresa Alpha",
-            "fecha_inicio": "2024-01-21 00:00:00",
-            "fecha_vencimiento": "2024-02-21 00:00:00",
+            "fecha_inicio": "2024-06-01 00:00:00",
+            "fecha_vencimiento": "2024-07-01 00:00:00",
             "estado": "En progreso",
             "empresa": "APH",
             "gerente": "Sony Sarkis",
@@ -14,7 +14,18 @@
                 " Enrique",
                 " Sony"
             ],
-            "tareas": [],
+            "tareas": [
+                {
+                    "id": "0",
+                    "nombre": "Asignaciones APH",
+                    "empresa_cliente": "MDN",
+                    "descripcion": "Conjunto de operaciones y sistemas realizados para MDN",
+                    "fecha_inicio": "2024-06-19 00:00:00",
+                    "fecha_vencimiento": "2025-01-01 00:00:00",
+                    "estado_actual": "Incompleto",
+                    "porcentaje": "45"
+                }
+            ],
             "pila_tareas_prioritarias": []
         },
         {
@@ -31,7 +42,18 @@
                 " Sony",
                 " Angelo"
             ],
-            "tareas": [],
+            "tareas": [
+                {
+                    "id": "1",
+                    "nombre": "Tarea para empresa OMG",
+                    "empresa_cliente": "OMG",
+                    "descripcion": "Sistemas contables para OMG",
+                    "fecha_inicio": "2024-06-19 00:00:00",
+                    "fecha_vencimiento": "2024-12-01 00:00:00",
+                    "estado_actual": "En progreso",
+                    "porcentaje": "50"
+                }
+            ],
             "pila_tareas_prioritarias": []
         },
         {
@@ -48,7 +70,18 @@
                 " Angelo",
                 " Enrique"
             ],
-            "tareas": [],
+            "tareas": [
+                {
+                    "id": "1",
+                    "nombre": "Tarea para LND",
+                    "empresa_cliente": "LND",
+                    "descripcion": "Sistema de inventario para LND",
+                    "fecha_inicio": "2024-06-19 00:00:00",
+                    "fecha_vencimiento": "2024-09-10 00:00:00",
+                    "estado_actual": "En progreso",
+                    "porcentaje": "45"
+                }
+            ],
             "pila_tareas_prioritarias": []
         }
     ]

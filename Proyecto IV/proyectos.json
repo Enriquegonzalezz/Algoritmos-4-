@@ -39,7 +39,18 @@
                     "porcentaje": "100"
                 }
             ],
-            "pila_tareas_prioritarias": []
+            "pila_tareas_prioritarias": [
+                {
+                    "id": "1",
+                    "nombre": "Tarea priori 1",
+                    "empresa_cliente": "Apple",
+                    "descripcion": "Hola",
+                    "fecha_inicio": "2024-06-19 00:00:00",
+                    "fecha_vencimiento": "2024-02-03 00:00:00",
+                    "estado_actual": "Completado",
+                    "porcentaje": "100"
+                }
+            ]
         }
     ]
 }

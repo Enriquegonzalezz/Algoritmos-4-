@@ -56,4 +56,7 @@ def proyecto_a_diccionario(proyecto):
 
 def verificar_convertir(fecha):
     if type(fecha) != datetime:
-        return datetime.strptime(fecha, '%Y-%m-%d')
+        try:
+            return datetime.strptime(fecha, '%Y-%m-%d')
+        except:
+            return datetime.strptime(fecha[:-9], '%Y-%m-%d')

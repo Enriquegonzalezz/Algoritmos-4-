@@ -2,7 +2,7 @@ from Proyecto import Proyecto
 from Subtarea import Subtarea
 from Tarea import Tarea
 from Almacenamiento import cargar_subtareas, cargar_proyectos
-from datetime import datetime
+from datetime import timedelta
 
 # Clase para gestionar los proyectos
 class GestorProyectos:
@@ -18,6 +18,7 @@ class GestorProyectos:
         for datos_proyecto in proyectos_data['proyectos']:
             proyecto = Proyecto(**{key: value for key, value in datos_proyecto.items() if key not in ['tareas', 'pila_tareas_prioritarias']})
             proyecto.tareas = [Tarea(**{key: value for key, value in datos_tarea.items() if key != 'subtareas'}) for datos_tarea in datos_proyecto.get('tareas', [])]
+            proyecto.pila_tareas_prioritarias = [Tarea(**{key: value for key, value in datos_tarea.items() if key != 'subtareas'}) for datos_tarea in datos_proyecto.get('pila_tareas_prioritarias', [])]
             proyectos.append(proyecto)
         return proyectos
 
@@ -185,9 +186,9 @@ class GestorProyectos:
         for proyecto in self.proyectos:
             if proyecto.id == id_proyecto:
                 tareas = proyecto.consultar_tareas_prioritaria()
-                if tareas:
-                    total = 0
+                if len(tareas) > 0:
+                    total = timedelta()
                     for tarea in tareas:
-                        total += datetime.strptime(proyecto.fecha_vencimiento, '%Y-%m-%d') - tarea.fecha_inicio
+                        total += proyecto.fecha_vencimiento - tarea.fecha_inicio
                     return total
         return None

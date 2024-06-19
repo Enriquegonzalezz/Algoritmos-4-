@@ -1,4 +1,5 @@
 import json
+from Varias import tarea_a_diccionario, proyecto_a_diccionario
 
 def GetConfig(route="config.txt"):
     List = []
@@ -31,8 +32,9 @@ def actualizar_proyecto(proyecto):
     proyectos = cargar_proyectos()
     for proyectoJ in proyectos['proyectos']:
         if proyectoJ['id'] == proyecto.id:
-            ProyectoDict = proyecto.__dict__
-            ProyectoDict['tareas'] = [tarea.a_diccionario() for tarea in proyecto.tareas]
+            ProyectoDict = proyecto_a_diccionario(proyecto)
+            ProyectoDict['tareas'] = [tarea_a_diccionario(tarea) for tarea in proyecto.obtener_tareas()]
+            ProyectoDict['pila_tareas_prioritarias'] = [tarea_a_diccionario(tarea) for tarea in proyecto.obtener_tareas_prioritarias()]
             proyectoJ.update(ProyectoDict)
     guardar_proyectos(proyectos)
 

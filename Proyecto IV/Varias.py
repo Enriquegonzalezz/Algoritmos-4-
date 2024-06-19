@@ -28,3 +28,28 @@ def comprobar_fecha(fecha):
         return fecha
     else:
         return comprobar_fecha(input("Fecha en el formato incorrecto por favor ingresela en el formato(YYYY-MM-DD): ")) 
+    
+def tarea_a_diccionario(tarea):
+    return {
+        "id": tarea.id,
+        "nombre": tarea.nombre,
+        "empresa_cliente": tarea.empresa_cliente,
+        "descripcion": tarea.descripcion,
+        "fecha_inicio": tarea.fecha_inicio,
+        "fecha_vencimiento": tarea.fecha_vencimiento,
+        "estado_actual": tarea.estado_actual,
+        "porcentaje": tarea.porcentaje
+    }
+
+def proyecto_a_diccionario(proyecto):
+    return {
+        "id": proyecto.id,
+        "nombre": proyecto.nombre,
+        "descripcion": proyecto.descripcion,
+        "fecha_inicio": proyecto.fecha_inicio,
+        "fecha_vencimiento": proyecto.fecha_vencimiento,
+        "estado": proyecto.estado,
+        "empresa": proyecto.empresa,
+        "gerente": proyecto.gerente,
+        "equipo": proyecto.equipo
+    }

@@ -22,6 +22,12 @@ class Proyecto:
     def agregar_tarea(self, tarea):
         self.tareas.append(tarea)
 
+    def obtener_tareas(self):
+        return self.tareas
+    
+    def obtener_tareas_prioritarias(self):
+        return self.pila_tareas_prioritarias
+
     # Método para agregar una tarea al final de la lista de tareas
     def agregar_tarea_al_final(self, tarea):
         self.tareas.append(tarea)

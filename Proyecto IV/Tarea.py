@@ -1,11 +1,13 @@
+from Varias import verificar_convertir
+
 class Tarea:
     def __init__(self, id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje):
         self.id = id
         self.nombre = nombre
         self.empresa_cliente = empresa_cliente
         self.descripcion = descripcion
-        self.fecha_inicio = fecha_inicio
-        self.fecha_vencimiento = fecha_vencimiento
+        self.fecha_inicio = verificar_convertir(fecha_inicio)
+        self.fecha_vencimiento = verificar_convertir(fecha_vencimiento)
         self.estado_actual = estado_actual
         self.porcentaje = porcentaje
         self.subtareas = []

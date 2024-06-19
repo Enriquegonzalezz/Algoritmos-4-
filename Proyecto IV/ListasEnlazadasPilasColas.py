@@ -17,6 +17,10 @@ def main():
     while True:
         opciones = mostrar_menu()
         eleccion = input("Seleccione una opción: ")
+        try:
+            int(eleccion)
+        except:
+            continue
 
         # Agregar Proyecto 
         if opciones.index("Agregar Proyecto") + 1 == int(eleccion):
@@ -198,15 +202,15 @@ def main():
                 print("3. Antes de")
                 filtro = input("Eleccion: ")
                 if filtro == "1":
-                    despues = datetime.strptime(comprobar_fecha(input("Fecha despues de (YYYY-MM-DD): ")))
-                    antes = datetime.strptime(comprobar_fecha(input("Fecha antes de (YYYY-MM-DD): "))) 
+                    despues = datetime.strptime(comprobar_fecha(input("Fecha despues de (YYYY-MM-DD): ")), '%Y-%m-%d')
+                    antes = datetime.strptime(comprobar_fecha(input("Fecha antes de (YYYY-MM-DD): ")), '%Y-%m-%d') 
                     listar_tareas_fecha(proyecto.tareas, fecha_inicio, [despues, antes])
                 else:
                     if filtro == "2":
-                        despues = datetime.strptime(input("Fecha despues de (YYYY-MM-DD): "))
+                        despues = datetime.strptime(input("Fecha despues de (YYYY-MM-DD): "), '%Y-%m-%d')
                         listar_tareas_fecha(proyecto.tareas, fecha_inicio, fecha_despues=despues)
                     else:
-                        antes = datetime.strptime(input("Fecha antes de (YYYY-MM-DD): "))
+                        antes = datetime.strptime(input("Fecha antes de (YYYY-MM-DD): "), '%Y-%m-%d')
                         listar_tareas_fecha(proyecto.tareas, fecha_inicio, fecha_antes=antes)
                 continue
             

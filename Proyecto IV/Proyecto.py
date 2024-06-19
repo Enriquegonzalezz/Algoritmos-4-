@@ -1,11 +1,13 @@
+from Varias import verificar_convertir
+
 class Proyecto:
     # Constructor de la clase Proyecto
     def __init__(self, id, nombre, descripcion, fecha_inicio, fecha_vencimiento, estado, empresa, gerente, equipo):
         self.id = id
         self.nombre = nombre
         self.descripcion = descripcion
-        self.fecha_inicio = fecha_inicio
-        self.fecha_vencimiento = fecha_vencimiento
+        self.fecha_inicio = verificar_convertir(fecha_inicio)
+        self.fecha_vencimiento = verificar_convertir(fecha_vencimiento)
         self.estado = estado
         self.empresa = empresa
         self.gerente = gerente

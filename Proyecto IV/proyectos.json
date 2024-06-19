@@ -4,8 +4,8 @@
             "id": "2",
             "nombre": "nani",
             "descripcion": "d",
-            "fecha_inicio": "d",
-            "fecha_vencimiento": "d",
+            "fecha_inicio": "2024-05-01",
+            "fecha_vencimiento": "2024-08-20",
             "estado": "d",
             "empresa": "d",
             "gerente": "d",
@@ -19,15 +19,26 @@
             "id": "1",
             "nombre": "sonido",
             "descripcion": "s",
-            "fecha_inicio": "s",
-            "fecha_vencimiento": "s",
+            "fecha_inicio": "2024-08-10",
+            "fecha_vencimiento": "2024-01-10",
             "estado": "s",
             "empresa": "s",
             "gerente": "s",
             "equipo": [
                 "s"
             ],
-            "tareas": [],
+            "tareas": [
+                {
+                    "id": "1",
+                    "nombre": "Tarea 1",
+                    "empresa_cliente": "Empresa",
+                    "descripcion": "Hola",
+                    "fecha_inicio": "2024-06-19",
+                    "fecha_vencimiento": "2024-12-03",
+                    "estado_actual": "Compleatada",
+                    "porcentaje": "100"
+                }
+            ],
             "pila_tareas_prioritarias": []
         }
     ]

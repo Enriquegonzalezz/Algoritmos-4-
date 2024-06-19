@@ -53,3 +53,7 @@ def proyecto_a_diccionario(proyecto):
         "gerente": proyecto.gerente,
         "equipo": proyecto.equipo
     }
+
+def verificar_convertir(fecha):
+    if type(fecha) != datetime:
+        return datetime.strptime(fecha, '%Y-%m-%d')

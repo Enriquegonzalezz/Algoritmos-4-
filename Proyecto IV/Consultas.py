@@ -1,7 +1,7 @@
 from datetime import datetime
 
 def listar_tareas_estado(tareas, estado_filtro):
-    if tareas:
+    if len(tareas) > 0:
         for tarea in tareas:
             if tarea.estado_actual == estado_filtro:
                 print(tarea)
@@ -9,28 +9,28 @@ def listar_tareas_estado(tareas, estado_filtro):
         print("No hay tareas registradas para este proyecto.")
 
 def listar_tareas_fecha(tareas, fecha_inicio = True, rango_fechas = None, fecha_despues = None, fecha_antes = None):
-    if tareas:
+    if len(tareas) > 0:
         for tarea in tareas:
             if rango_fechas:
                 if fecha_inicio:
                     if rango_fechas[0] <= tarea.fecha_inicio <= rango_fechas[1]:
                         print(tarea)
                 else:
-                    if rango_fechas[0] <= datetime.strptime(tarea.fecha_vencimiento,'%Y-%m-%d') <= rango_fechas[1]:
+                    if rango_fechas[0] <= tarea.fecha_vencimiento <= rango_fechas[1]:
                         print(tarea)
             elif fecha_despues:
                 if fecha_inicio:
                     if tarea.fecha_inicio >= fecha_despues:
                         print(tarea)
                 else:
-                    if datetime.strptime(tarea.fecha_vencimiento,'%Y-%m-%d') >= fecha_despues:
+                    if tarea.fecha_vencimiento >= fecha_despues:
                         print(tarea)
             elif fecha_antes:
                 if fecha_inicio:
                     if tarea.fecha_inicio <= fecha_antes:
                         print(tarea)
                 else:
-                    if datetime.strptime(tarea.fecha_vencimiento,'%Y-%m-%d') <= fecha_antes:
+                    if tarea.fecha_vencimiento <= fecha_antes:
                         print(tarea)
     else:
         print("No hay tareas registradas para este proyecto.")
@@ -42,7 +42,7 @@ def calcular_porcentaje_finalizacion(tareas):
 
 # Método para calcular el tiempo restante aproximado para terminar el proyecto
 def calcular_tiempo_restante(proyecto):
-    fecha_venc = datetime.strptime(proyecto.fecha_vencimiento, '%Y-%m-%d')
+    fecha_venc = proyecto.fecha_vencimiento, '%Y-%m-%d'
     tiempo_restante = fecha_venc - datetime.now()
     return tiempo_restante.days if tiempo_restante.days > 0 else 0
 
@@ -69,6 +69,6 @@ def filtrar_mostrar_proyectos(proyectos, fecha_inicio=None, fecha_vencimiento=No
         print('-----------------------------------')
 
 def listar_subtareas_tareas(subtareas, tarea):
-        print(str(tarea))
-        for subtarea in subtareas:
-            print(f"  - {subtarea}")
+    print(str(tarea))
+    for subtarea in subtareas:
+        print(f"  - {subtarea}")

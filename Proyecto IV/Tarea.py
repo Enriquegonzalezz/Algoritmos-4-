@@ -51,3 +51,4 @@ class Tarea:
         total = len(self.subtareas)
         completadas = sum(1 for subtarea in self.subtareas if subtarea.estado_actual == 'Completado')
         self.porcentaje = (completadas / total) * 100
+        return self.porcentaje

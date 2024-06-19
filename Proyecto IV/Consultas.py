@@ -69,6 +69,8 @@ def filtrar_mostrar_proyectos(proyectos, fecha_inicio=None, fecha_vencimiento=No
         print('-----------------------------------')
 
 def listar_subtareas_tareas(subtareas, tarea):
+    progreso = tarea.calcular_progreso()
     print(str(tarea))
     for subtarea in subtareas:
         print(f"  - {subtarea}")
+    print(f"  - Progreso: {progreso}%")

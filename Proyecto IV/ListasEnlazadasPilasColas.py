@@ -333,8 +333,9 @@ def main():
             if not gestor.proyecto_existe(id_proyecto):
                 print("No se encontró el proyecto.")
                 continue
-
-            for tarea in proyectos.tareas:
+            
+            proyecto = gestor.obtener_proyecto(id_proyecto)
+            for tarea in proyecto.tareas:
                 subtareas = gestor.listar_subtareas_de_tarea_en_proyecto(id_proyecto, tarea.id)
                 if subtareas:
                     listar_subtareas_tareas(subtareas, tarea)
